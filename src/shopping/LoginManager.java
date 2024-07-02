@@ -8,9 +8,8 @@ import java.util.Scanner;
 public class LoginManager {
 	private static Scanner scan = new Scanner(System.in);
 	private List<User> userList = new ArrayList<User>();
-	private List<String> findPwQuestion = Arrays.asList("1. 가장 존경하는 사람은?",
-														"2. 가장 좋아하는 노래는?",
-														"3. 가장 좋아하는 음식은?");
+	private List<String> findPwQuestion = Arrays.asList("1. 가장 존경하는 사람은?", "2. 가장 좋아하는 노래는?", "3. 가장 좋아하는 음식은?");
+	
 	public void printMenu() {
 		System.out.print(
 				"메인 메뉴\n"
@@ -27,6 +26,7 @@ public class LoginManager {
 		do {
 			printMenu();
 			menu = scan.nextInt();
+			printBar();
 			try {
 				runMenu(menu);
 			} catch (Exception e) {
