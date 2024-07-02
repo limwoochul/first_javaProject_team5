@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class LoginManager {
 	private static Scanner scan = new Scanner(System.in);
@@ -63,21 +64,21 @@ public class LoginManager {
 
 	private void register() {
 		System.out.print("아이디 : ");
-		String id = scan.next();
+		scan.nextLine();
+		String id = scan.nextLine();
 		if(!checkId(id)) {
 			printBar();
 			return;
 		}
 
 		System.out.print("비밀번호 : ");
-		String pw = scan.next();
+		String pw = scan.nextLine();
 		if(!checkPw(pw)) {
 			printBar();
 			return;
 		}
 
 		System.out.print("이름 : ");
-		scan.nextLine();
 		String name = scan.nextLine();
 		System.out.print("주소 : ");
 		String address = scan.nextLine();
@@ -101,13 +102,9 @@ public class LoginManager {
 	}
 
 	private boolean checkId(String id) {
-		if(id==null || id.length()<4 || id.length()>15) {
-			System.out.println("아이디는 4자에서 15자 사이여야 합니다.");
-			return false;
-		}
-
-		if(id.contains(" ")) {
-			System.out.println("공백을 포함할 수 없습니다.");
+		String regex = "^\\w{4,15}$";
+		if(!Pattern.matches(regex, id)) {
+			System.out.println("아이디는 공백없이 4자에서 15자 사이의 영문과 숫자로만 이뤄져야 합니다.");
 			return false;
 		}
 
@@ -117,18 +114,15 @@ public class LoginManager {
 				return false;
 			}
 		}
+		
 		System.out.println("사용 가능한 아이디입니다.");
 		return true;
 	}
 
 	private boolean checkPw(String pw) {
-		if (pw==null || pw.length() < 6 || pw.length() > 15) {
-			System.out.println("비밀번호는 6자에서 15자 사이여야 합니다.");
-			return false;
-		}
-
-		if(pw.contains(" ")) {
-			System.out.println("공백을 포함할 수 없습니다.");
+		String regex = "^\\w{6,15}$";
+		if (!Pattern.matches(regex, pw)){
+			System.out.println("비밀번호는 공백없이 6자에서 15자 사이의 영문과 숫자로만 이뤄져야 합니다.");
 			return false;
 		}
 
