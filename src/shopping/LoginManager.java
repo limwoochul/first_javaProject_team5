@@ -13,13 +13,13 @@ public class LoginManager {
 	
 	public void printMenu() {
 		System.out.print(
-				"메인 메뉴\n"
-						+ "1. 회원가입\n"
-						+ "2. 로그인\n"
-						+ "3. 비밀번호 찾기\n"
-						+ "4. 관리자 로그인\n"
-						+ "5. 프로그램 종료\n"
-						+ "메뉴 선택 : ");
+				  "메인 메뉴\n"
+				+ "1. 회원가입\n"
+				+ "2. 로그인\n"
+				+ "3. 비밀번호 찾기\n"
+				+ "4. 관리자 로그인\n"
+				+ "5. 프로그램 종료\n"
+				+ "메뉴 선택 : ");
 	}
 
 	public void run() {
@@ -62,6 +62,7 @@ public class LoginManager {
 		System.out.println("--------------");
 	}
 
+	//아이디 등록 메소드(아이디, 비밀번호, 이름, 주소, 핸드폰번호, 비밀번호찾기 질문과 답 입력받음)
 	private void register() {
 		System.out.print("아이디 : ");
 		scan.nextLine();
@@ -101,6 +102,7 @@ public class LoginManager {
 		System.out.println("-----회원가입이 완료되었습니다.-----");
 	}
 
+	//아이디 형식이 맞는지 체크하는 메소드(공백X, 영문과숫자, 4~15자)
 	private boolean checkId(String id) {
 		String regex = "^\\w{4,15}$";
 		if(!Pattern.matches(regex, id)) {
@@ -119,6 +121,7 @@ public class LoginManager {
 		return true;
 	}
 
+	//비밀번호 형식이 맞는지 체크하는 메소드(공백X, 영문과숫자, 6~15자)
 	private boolean checkPw(String pw) {
 		String regex = "^\\w{6,15}$";
 		if (!Pattern.matches(regex, pw)){
@@ -136,6 +139,7 @@ public class LoginManager {
 		return true;
 	}
 
+	//아이디, 비밀번호를 입력받아 로그인하는 메소드
 	private void userlogin() {
 		User user = checkUser();
 		if(user==null) {
@@ -146,8 +150,10 @@ public class LoginManager {
 
 		System.out.println("로그인 성공!");
 		printBar();
+		//온라인 쇼핑 구동하는 메소드 불러오기
 	}
 
+	//저장된 리스트에 입려된 아이디와 비밀번호가 일치하는게 있는지 확인하는 메소드
 	private User checkUser() {
 		System.out.print("아이디 : ");
 		String id = scan.next();
@@ -162,6 +168,7 @@ public class LoginManager {
 		return null;
 	}
 	
+	//비밀번호 찾기 메소드
 	private void findPassword() {
 		System.out.print("아이디 : ");
 		String id = scan.next();
@@ -197,6 +204,9 @@ public class LoginManager {
 		
 	}
 
+	//관리자 로그인 메소드
+	//임시 관리자 id : admin
+	//임시 관리자 pw : admin1234
 	private void adminLogin() {
 		System.out.print("관리자 아이디 : ");
 		String id = scan.next();
