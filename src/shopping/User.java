@@ -13,7 +13,7 @@ public class User {
 	private String name;
 	private String address;
 	private String phoneNumber;
-	private int findPwQuestionNum;
+	private int findPwQuestionNum; //비밀번호찾기 질문 리스트 두고 번호고르기
 	private String findPwAnswer;
 	
 	public User(String id) {
