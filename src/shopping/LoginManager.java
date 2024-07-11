@@ -32,7 +32,7 @@ public class LoginManager {
 			} catch (Exception e) {
 				System.out.println("예외 발생");
 			}
-		}while(menu != 5);
+		}while(menu != 4);
 	}
 
 	public void runMenu(int menu) throws Exception {
