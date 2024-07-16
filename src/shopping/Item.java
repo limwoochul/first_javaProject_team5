@@ -1,4 +1,4 @@
-package shoppingmall;
+package shopping;
 
 import java.util.Objects;
 import lombok.Data;

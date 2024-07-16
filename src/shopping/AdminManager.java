@@ -1,4 +1,4 @@
-package shoppingmall;
+package shopping;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
