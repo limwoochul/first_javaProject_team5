@@ -2,6 +2,7 @@ package shopping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -25,7 +26,7 @@ public class LoginManager {
 		int menu;
 		do {
 			printMenu();
-			menu = scan.nextInt();
+			menu = nextInt();
 			printBar();
 			try {
 				runMenu(menu);
@@ -34,6 +35,7 @@ public class LoginManager {
 			}
 		}while(menu != 4);
 	}
+
 
 	public void runMenu(int menu) throws Exception {
 		switch(menu) {
@@ -52,6 +54,15 @@ public class LoginManager {
 		default:
 			wrongMenu();
 		}
+	}
+	
+	private int nextInt() {
+        try {
+            return scan.nextInt();
+        } catch (InputMismatchException e) {
+            scan.nextLine();
+            return Integer.MIN_VALUE;
+        }
 	}
 	
 	public void printBar() {
@@ -144,9 +155,10 @@ public class LoginManager {
 		
 		User user = new User();
 		if(user.loginAdmin(id, pw)) {
+			AdminManager am = new AdminManager();
 			System.out.println("관리자 로그인 성공!");
 			printBar();
-			//관리자메뉴 구동하는 메소드 불러오기
+			am.run();			
 		}
 		else {
 			user = checkUser(id, pw);

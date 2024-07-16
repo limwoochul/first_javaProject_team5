@@ -59,7 +59,7 @@ public class AdminManager implements Program {
 
     @Override
     public void printMenu() {
-        System.out.println(
+        System.out.print(
             "메뉴\n" +
             "1. 상품 등록\n" +
             "2. 상품 삭제\n" +
