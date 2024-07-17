@@ -4,3 +4,4 @@
 .settings/
 
 first_javaProject_team5/.gitignore
+/bin/
