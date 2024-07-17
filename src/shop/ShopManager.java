@@ -1,6 +1,7 @@
 package shop;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,7 +37,7 @@ public class ShopManager implements Program {
 
 			printMenu();
 
-			menu = scan.nextInt();
+			menu = nextInt();
 			
 			try {
 				runMenu(menu);
@@ -46,6 +47,15 @@ public class ShopManager implements Program {
 			
 		} while(menu != 5);
 
+	}
+
+	private int nextInt() {
+		try {
+			return scan.nextInt();
+		} catch (InputMismatchException e) {
+			scan.nextLine();
+			return Integer.MIN_VALUE;
+		}
 	}
 
 	@Override
