@@ -10,7 +10,7 @@ public class ItemManager implements Program {
 	
 	private Scanner scan = new Scanner(System.in);
 	//물품조회 리스트
-	private List<Item>list = new ArrayList<Item>();
+	private List<Item> list = new ArrayList<Item>();
 	
 	@Override
 	public void printMenu() {
@@ -18,8 +18,8 @@ public class ItemManager implements Program {
 				  "-----상품조회-----\n"
 				+ "1. 전체 조회 \n"
 				+ "2. 상품명으로 조회\n"
-				+ "3. 이전화면\n"
-				+ "4. 프로그램 종료\n"
+				+ "3. 장바구니\n"
+				+ "4. 이전으로\n"
 				+ "메뉴 선택 : ");
 	}
 
@@ -33,10 +33,10 @@ public class ItemManager implements Program {
 			producName();
 			break;
 		case 3:
-			prev();
+			cart();
 			break;
 		case 4:
-			exit();
+			prev();
 			break;
 		default:
 			defaultPrint();
@@ -45,15 +45,15 @@ public class ItemManager implements Program {
 	
 
 
+	private void cart() {
+		//장바구니 불러올 메소드
+		
+	}
+
 	private void defaultPrint() {
 		System.err.println("올바른 메뉴를 선택하세요.");
 	}
 	
-	private void exit() {
-		System.out.println("프로그램을 종료합니다.");
-		
-	}
-
 	private void prev() {
 		System.out.println("메뉴로 돌아갑니다.");
 		return;
@@ -65,12 +65,15 @@ public class ItemManager implements Program {
 		System.out.print("상품번호 : ");
 		String itemNum = scan.next();
 		
+		for(Item tmp : list) {
+			
+		}
+		
 	}
 	private void producAll() {
-		/*
-		 * TODO 전체조회 할수있게 만들기
-		 * 1. 장바구니랑 연동해야함 (잘모르겠음ㅠ)
-		 */
+		for(Item tmp : list) {
+			System.out.println(tmp);
+		}
 		System.out.println("장바구니와 연동중입니다.");
 	}
 
