@@ -1,7 +1,0 @@
-연습 페이지 입니다.
-<<<<<<< Updated upstream
-연습페이지 입니다. jkm
-=======
-
-연습 페이지 입니다 .jkm
->>>>>>> Stashed changes
