@@ -2,24 +2,26 @@ package shopping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class LoginManager {
 	private static Scanner scan = new Scanner(System.in);
-	private List<User> userList = new ArrayList<User>();
+	private Map<String, User> userMap = new HashMap<>();
 	private List<String> findPwQuestion = Arrays.asList("1. 가장 존경하는 사람은?", "2. 가장 좋아하는 노래는?", "3. 가장 좋아하는 음식은?");
-	
+
 	public void printMenu() {
 		System.out.print(
-				  "메인 메뉴\n"
-				+ "1. 회원가입\n"
-				+ "2. 로그인\n"
-				+ "3. 비밀번호 찾기\n"
-				+ "4. 프로그램 종료\n"
-				+ "메뉴 선택 : ");
+				"메인 메뉴\n"
+						+ "1. 회원가입\n"
+						+ "2. 로그인\n"
+						+ "3. 비밀번호 찾기\n"
+						+ "4. 프로그램 종료\n"
+						+ "메뉴 선택 : ");
 	}
 
 	public void run() {
@@ -55,16 +57,16 @@ public class LoginManager {
 			wrongMenu();
 		}
 	}
-	
+
 	private int nextInt() {
-        try {
-            return scan.nextInt();
-        } catch (InputMismatchException e) {
-            scan.nextLine();
-            return Integer.MIN_VALUE;
-        }
+		try {
+			return scan.nextInt();
+		} catch (InputMismatchException e) {
+			scan.nextLine();
+			return Integer.MIN_VALUE;
+		}
 	}
-	
+
 	public void printBar() {
 		System.out.println("--------------");
 	}
@@ -105,7 +107,7 @@ public class LoginManager {
 		String answer = scan.nextLine();
 
 		User user = new User(id, pw, name, address, phoneNumber, question, answer);
-		userList.add(user);
+		userMap.put(id, user);
 		System.out.println("-----회원가입이 완료되었습니다.-----");
 	}
 
@@ -117,13 +119,11 @@ public class LoginManager {
 			return false;
 		}
 
-		for(User user : userList) {
-			if(user.getId().equals(id)) {
-				System.out.println("이미 존재하는 아이디입니다.");
-				return false;
-			}
+		if (userMap.containsKey(id)) {
+			System.out.println("이미 존재하는 아이디입니다.");
+			return false;
 		}
-		
+
 		System.out.println("사용 가능한 아이디입니다.");
 		return true;
 	}
@@ -152,55 +152,55 @@ public class LoginManager {
 		String id = scan.next();
 		System.out.print("비밀번호 : ");
 		String pw = scan.next();
-		
-		User user = new User();
-		if(user.loginAdmin(id, pw)) {
+
+		if(adminLogin(id,pw)) {
 			AdminManager am = new AdminManager();
 			System.out.println("관리자 로그인 성공!");
 			printBar();
 			am.run();			
 		}
 		else {
-			user = checkUser(id, pw);
+			User user = checkUser(id, pw);
 			if(user==null) {
 				System.out.println("아이디 또는 비밀번호가 잘못되었습니다.");
 				printBar();
 				return;
 			}
-			
+
 			System.out.println("로그인 성공!");
 			printBar();
 			//온라인 쇼핑 구동하는 메소드 불러오기
-			ItemManager im = new ItemManager();
-			im.run();
+			//ItemManager im = new ItemManager();
+			//im.run();
 		}
-		
+
+	}
+
+	private boolean adminLogin(String id, String pw) {
+		User user = new User();
+		return user.loginAdmin(id, pw);
 	}
 
 	//저장된 리스트에 입력된 아이디와 비밀번호가 일치하는게 있는지 확인하는 메소드
 	private User checkUser(String id, String pw) {
-		for(User user : userList) {
-			if(user.getId().equals(id) && user.getPw().equals(pw)) {
-				return user;
-			}
+		User user = userMap.get(id);
+		if (user != null && user.getPw().equals(pw)) {
+			return user;
 		}
 		return null;
 	}
-	
+
 	//비밀번호 찾기 메소드
 	private void findPassword() {
 		System.out.print("아이디 : ");
 		String id = scan.next();
-		User user = new User(id);
-		
-		int index = userList.indexOf(user);
-		if(index<0) {
-			System.out.println("일치하는 아이디가 없습니다.");
-			return;
-		}
-		
-		user = userList.get(index);
-		
+		User user = userMap.get(id);
+
+        if (user == null) {
+            System.out.println("일치하는 아이디가 없습니다.");
+            return;
+        }
+
 		System.out.println("---비밀번호 찾기 질문 목록---");
 		System.out.println(findPwQuestion);
 		System.out.print("질문 번호 선택 : ");
@@ -212,15 +212,15 @@ public class LoginManager {
 		System.out.print("답변 : ");
 		scan.nextLine();
 		String answer = scan.nextLine();
-		
+
 		if(user.getFindPwQuestionNum() == question 
 				&& user.getFindPwAnswer().equals(answer)) {
 			System.out.println("비밀번호는 [" + user.getPw() + "] 입니다.");
 			return;
 		}
-		
+
 		System.out.println("질문 또는 답변이 일치하지 않습니다.");
-		
+
 	}
 
 	private void exit() {
