@@ -171,6 +171,8 @@ public class LoginManager {
 			System.out.println("로그인 성공!");
 			printBar();
 			//온라인 쇼핑 구동하는 메소드 불러오기
+			ItemManager im = new ItemManager();
+			im.run();
 		}
 		
 	}
