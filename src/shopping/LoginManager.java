@@ -231,10 +231,12 @@ public class LoginManager {
 		if(user.getFindPwQuestionNum() == question 
 				&& user.getFindPwAnswer().equals(answer)) {
 			System.out.println("비밀번호는 [" + user.getPw() + "] 입니다.");
+			printBar();
 			return;
 		}
 
 		System.out.println("질문 또는 답변이 일치하지 않습니다.");
+		printBar();
 
 	}
 
@@ -244,5 +246,6 @@ public class LoginManager {
 
 	private void wrongMenu() {
 		System.out.println("올바른 메뉴를 선택하세요.");
+		printBar();
 	}
 }
