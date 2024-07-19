@@ -92,8 +92,14 @@ public class LoginManager {
 		String name = scan.nextLine();
 		System.out.print("주소 : ");
 		String address = scan.nextLine();
-		System.out.print("핸드폰번호 : ");
+		System.out.print("휴대번호('-'포함) : ");
 		String phoneNumber = scan.nextLine();
+		
+		if(!checkPhoneNumber(phoneNumber)) {
+			printBar();
+			return;
+		}
+		
 		System.out.println("---비밀번호 분실 시 찾기 질문---");
 		System.out.println(findPwQuestion);
 		System.out.print("질문 번호 선택 : ");
@@ -106,7 +112,7 @@ public class LoginManager {
 		scan.nextLine();
 		String answer = scan.nextLine();
 
-		User user = new User(id, pw, name, address, phoneNumber, question, answer);
+		User user = new User(id, pw, name, address, phoneNumber, question, answer, new ArrayList<>());
 		userMap.put(id, user);
 		System.out.println("-----회원가입이 완료되었습니다.-----");
 	}
@@ -143,6 +149,15 @@ public class LoginManager {
 			}
 		}
 		System.out.println("사용 가능한 비밀번호입니다.");
+		return true;
+	}
+	
+	private boolean checkPhoneNumber(String phoneNumber) {
+		String regex = "^01(?:0|1|[6-9])-\\d{3,4}-\\d{4}$";
+		if(!Pattern.matches(regex, phoneNumber)) {
+			System.out.println("휴대번호 형식이 맞지 않습니다.");
+			return false;
+		}
 		return true;
 	}
 

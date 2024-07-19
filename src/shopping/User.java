@@ -1,5 +1,6 @@
 package shopping;
 
+import java.util.List;
 import java.util.Objects;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class User {
 	private String phoneNumber;
 	private int findPwQuestionNum; //비밀번호찾기 질문 리스트 두고 번호고르기
 	private String findPwAnswer;
+	private List<String> Cart; //개인 장바구니를 위해 회원객체에 포함
 	
 	private static final String adminId = "admin";
 	private static final String adminPw = "admin1234";
