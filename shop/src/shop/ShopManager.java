@@ -19,11 +19,12 @@ public class ShopManager implements program {
 	@Override
 	public void printMenu() {
 		System.out.println("나의 장바구니");
-//		System.out.println("1. 장바구니 등록");
-		System.out.println("1. 장바구니 확인");
-		System.out.println("2. 일부 비우기 ");
-		System.out.println("3. 전체 비우기");
-		System.out.println("4. 이전으로");
+		System.out.println("1. 장바구니 등록");
+		System.out.println("2. 장바구니 확인");
+		System.out.println("3. 일부 비우기 ");
+		System.out.println("4. 전체 비우기");
+		System.out.println("5. 이전으로");
+		System.out.println("6. 재고 등록");
 		System.out.print("메뉴 선택 : ");
 	}
 
@@ -44,7 +45,7 @@ public class ShopManager implements program {
 				e.printStackTrace();
 			}
 			
-		} while(menu != 4);
+		} while(menu != 5);
 
 	}
 
@@ -53,62 +54,64 @@ public class ShopManager implements program {
 
 		switch(menu) {
 
-//		case 1: 
-//			insert();
-//		break;
+		case 1: 
+			insert();
+		break;
 
-		case 1:
+		case 2:
 			checkBag();
 			break;
 
-		case 2:
+		case 3:
 			emptySome();
 			break;
 
-		case 3:
+		case 4:
 			empty();
 			break;
 
-		case 4:
+		case 5:
 			prev();
 			break;
-
+		case 6;
+			insertInventory();
+			break;
 		default:
 
 		}
 
 	}
 
-//	private void insert() {
-//
-//		// 아이디, 상품 및 가격 입력
-//		System.out.print("구매자 : ");
-//		String cusId = scan.next();
-//		System.out.print("상품명 : ");
-//		String itemName = scan.next();
-//		System.out.print("가격 : ");
-//		int itemPrice = scan.nextInt();
-//
-//		// 연락처를 이용한 객체 생성 ( 중복여부 확인과 연락처 추가를 위해 필요하다. )
-//		Shop shop = new Shop(cusId, itemName, itemPrice);
-//
-//		// 리스트에 연락처 추가
-//
-//		list.add(shop);
-//
-//		// 안내문구 출력
-//
-//		System.out.println("장바구니에 추가를 완료하였습니다.");
-//	}
+	private void insert() {
+
+		// 아이디, 상품 및 가격 입력
+		System.out.print("구매자 : ");
+		String cusId = scan.next();
+		System.out.print("상품명 : ");
+		String itemName = scan.next();
+		System.out.print("가격 : ");
+		int itemPrice = scan.nextInt();
+
+		// 연락처를 이용한 객체 생성 ( 중복여부 확인과 연락처 추가를 위해 필요하다. )
+		Shop shop = new Shop(cusId, itemName, itemPrice);
+
+		// 리스트에 연락처 추가
+
+		list.add(shop);
+
+		// 안내문구 출력
+
+		System.out.println("장바구니에 추가를 완료하였습니다.");
+	}
 
 	private void checkBag() {
 		// 아이디 별로 등록된 상품의 리스트(장바구니) 및 구매의사 여부를 확인하는 메소드.
 		// 아이디 입력 시, 번호·상품명·가격 출력 후, 마지막으로 가격의 총액 및 구매하기 버튼 출력.
 
-		// 검색
-//		// 1. 아이디 입력
-//		System.out.print("구매자 : ");
-//		String search = scan.next();
+		 검색
+		// 1. 아이디 입력
+		System.out.print("구매자 : ");
+		String search = scan.next();
 		
 		// 2. 입력한 아이디에 저장된 리스트를 가격 (각각의 가격) 과 함께 출력
 		int i = 0, count = 0;
@@ -159,23 +162,19 @@ public class ShopManager implements program {
 
 		// 검색
 
-//		// 1. 아이디 입력
-//		System.out.print("아이디 : ");
-//		String search = scan.next();
+		// 1. 아이디 입력
+		System.out.print("아이디 : ");
+		String search = scan.next();
 
 		// 2. 입력한 아이디에 저장된 리스트를 가격 (각각의 가격) 과 함께 출력
 		int i = 0, count = 0;
-//		int sum = 0;
 		for ( Shop shop : list ) {
 			++i;;
 			if(shop.getCusId().contains(search)) {
 				count++;
 				System.out.println(i + ". " + shop);
-//				sum += shop.getItemPrice();
 			}
 		}
-		
-//		System.out.print("총액 : " + sum + "원");
 		
 		System.out.println();
 		
@@ -209,9 +208,9 @@ public class ShopManager implements program {
 
 		// 검색
 
-//		// 1. 아이디 입력
-//		System.out.print("아이디 : ");
-//		String search = scan.next();
+		// 1. 아이디 입력
+		System.out.print("아이디 : ");
+		String search = scan.next();
 
 		// 2. 입력한 아이디에 저장된 리스트를 가격 (각각의 가격) 과 함께 출력
 		int i = 0, count = 0;

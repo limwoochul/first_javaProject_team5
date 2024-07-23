@@ -12,6 +12,8 @@ public class ShopManager implements Program {
 	private Scanner scan = new Scanner(System.in);
 
 	private List<Shop> list = new ArrayList<Shop>();
+	
+	private List<ItemInventory> list_1 = new ArrayList<ItemInventory>();
 
 	public static void main(String[] args) {
 
@@ -25,6 +27,7 @@ public class ShopManager implements Program {
 		System.out.println("3. 일부 비우기 ");
 		System.out.println("4. 전체 비우기");
 		System.out.println("5. 이전으로");
+		System.out.println("6. 재고 등록");
 		System.out.print("메뉴 선택 : ");
 	}
 
@@ -82,11 +85,40 @@ public class ShopManager implements Program {
 		case 5:
 			prev();
 			break;
+			
+		case 6:
+			itemInventory();
+			break;
 
 		default:
 
 		}
 
+	}
+
+	private void itemInventory() {
+		// 재고를 등록하는 메소드
+		
+		// 상품 및 재고 입력
+		
+		System.out.print("상품명 : ");
+		String itemName_1 = scan.next();
+		System.out.print("재고 : ");
+		int itemInven_1 = scan.nextInt();
+		
+		// 입력 내용을 이용한 객체 생성
+		
+		ItemInventory inven = new ItemInventory(itemName_1, itemInven_1);
+		
+		// 리스트에 입력 내용 추가
+		
+		list_1.add(inven);
+		
+		// 안내문구 출력
+		
+		System.out.println("재고 입력을 완료하였습니다.");
+		System.out.println(list_1);
+		
 	}
 
 	private void insert() {
@@ -99,10 +131,10 @@ public class ShopManager implements Program {
 		System.out.print("가격 : ");
 		int itemPrice = scan.nextInt();
 
-		// 연락처를 이용한 객체 생성 ( 중복여부 확인과 연락처 추가를 위해 필요하다. )
+		// 입력 내용을 이용한 객체 생성
 		Shop shop = new Shop(cusId, itemName, itemPrice);
 
-		// 리스트에 연락처 추가
+		// 리스트에 입력 내용 추가
 
 		list.add(shop);
 
@@ -152,6 +184,9 @@ public class ShopManager implements Program {
 		if(str.equals("y"))
 		{ System.out.println("구매가 완료되었습니다.");
 		return;
+		
+		// 4-1-1
+		
 		// 4-2 아니오. 입력 시, ' 메뉴로 돌아갑니다. ' 출력 후, 메뉴로 ...
 		} else {
 			System.out.println("메뉴로 돌아갑니다.");
