@@ -182,13 +182,16 @@ public class ShopManager implements Program {
 		String str = scan.next();
 		// 4-1 예. 입력 시, ' 구매가 완료되었습니다. ' 출력
 		if(str.equals("y"))
-		{ System.out.println("구매가 완료되었습니다.");
-		return;
+		{ 
+			
+			// 4-1-1. 검색한 아이디의 장바구니에서 상품명을 추출
+				list.stream().filter(p->p.getCusId().contains(search));
+			// 4-1-2. 추출한 상품명을 재고와 비교하여 있으면 재고를 -1, 없으면 '재고가 부족하여 구매할 수 없습니다.' 출력
 		
-		// 4-1-1
+		}
 		
 		// 4-2 아니오. 입력 시, ' 메뉴로 돌아갑니다. ' 출력 후, 메뉴로 ...
-		} else {
+		else {
 			System.out.println("메뉴로 돌아갑니다.");
 			return;
 		}
