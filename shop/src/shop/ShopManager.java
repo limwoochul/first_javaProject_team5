@@ -11,6 +11,8 @@ public class ShopManager implements program {
 	private Scanner scan = new Scanner(System.in);
 
 	private List<Shop> list = new ArrayList<Shop>();
+	
+	private List<ItemInventory> list_1 = new ArrayList<ItemInventory>();
 
 	public static void main(String[] args) {
 
@@ -73,13 +75,38 @@ public class ShopManager implements program {
 		case 5:
 			prev();
 			break;
-		case 6;
+		case 6:
 			insertInventory();
 			break;
 		default:
 
 		}
 
+	}
+
+	private void insertInventory() {
+		
+		// 상품 및 재고 입력
+		System.out.print("상품명 : ");
+		String itemName_1 = scan.next();
+		System.out.print("재고 : ");
+		int itemInventory_1 = scan.nextInt();
+		
+		// 입력 내용을 이용하여 객체 생성
+		ItemInventory inven = new ItemInventory(itemName_1, itemInventory_1);
+		
+		// 리스트에 상품 및 재고 추가
+		
+		list_1.add(inven);
+		
+		System.out.println("상품의 재고입력을 완료하였습니다.");
+		
+		printBar();
+		
+		System.out.println("현 재고 : " + list_1);
+		
+		printBar();
+		
 	}
 
 	private void insert() {
@@ -108,7 +135,7 @@ public class ShopManager implements program {
 		// 아이디 별로 등록된 상품의 리스트(장바구니) 및 구매의사 여부를 확인하는 메소드.
 		// 아이디 입력 시, 번호·상품명·가격 출력 후, 마지막으로 가격의 총액 및 구매하기 버튼 출력.
 
-		 검색
+		//검색
 		// 1. 아이디 입력
 		System.out.print("구매자 : ");
 		String search = scan.next();
@@ -142,11 +169,26 @@ public class ShopManager implements program {
 		// 4. 구매의사
 		System.out.println(" 상품을 구매하시겠습니까? (y/n) : ");
 		String str = scan.next();
-		// 4-1 예. 입력 시, ' 구매가 완료되었습니다. ' 출력
+		
+		// 4-1 예. 입력 시 ...
 		if(str.equals("y"))
 		{ System.out.println("구매가 완료되었습니다.");
-		return;
+			return;
+		
+			// 구매 리스트의 상품과 재고 리스트의 상품을 비교 ( 반복문을 이용하는게 좋겠다고 하심. )
+			
+			// 구매 리스트의 상품이 재고 리스트의 상품에 있으면 재고 리스트의 상품의 재고를 1씩 감소
+			
+			// 구매가 완료되면 해당 아이디의 구매 리스트 삭제
+		
+			// ' 구매가 완료되었습니다 ' 출력 후, 메뉴로 돌아가기
+		
+			// 동일한 것이 없으면 ' 재고가 없어서 구매할 수 없습니다 ' 출력 후, 메뉴로 돌아가기.
+		
+			
+		
 		// 4-2 아니오. 입력 시, ' 메뉴로 돌아갑니다. ' 출력 후, 메뉴로 ...
+		
 		} else {
 			System.out.println("메뉴로 돌아갑니다.");
 			return;
