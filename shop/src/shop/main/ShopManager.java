@@ -21,12 +21,10 @@ public class ShopManager implements program {
 	@Override
 	public void printMenu() {
 		System.out.println("나의 장바구니");
-		System.out.println("1. 장바구니 등록");
-		System.out.println("2. 장바구니 확인");
-		System.out.println("3. 일부 비우기 ");
-		System.out.println("4. 전체 비우기");
-		System.out.println("5. 이전으로");
-		System.out.println("6. 재고 등록");
+		System.out.println("1. 장바구니 확인");
+		System.out.println("2. 일부 비우기 ");
+		System.out.println("3. 전체 비우기");
+		System.out.println("4. 이전으로");
 		System.out.print("메뉴 선택 : ");
 	}
 
@@ -47,7 +45,7 @@ public class ShopManager implements program {
 				e.printStackTrace();
 			}
 			
-		} while(menu != 5);
+		} while(menu != 4);
 
 	}
 
@@ -56,59 +54,28 @@ public class ShopManager implements program {
 
 		switch(menu) {
 
-		case 1: 
-			insert();
-		break;
-
-		case 2:
+		case 1:
 			checkBag();
 			break;
 
-		case 3:
+		case 2:
 			emptySome();
 			break;
 
-		case 4:
+		case 3:
 			empty();
 			break;
 
-		case 5:
+		case 4:
 			prev();
 			break;
-		case 6:
-			insertInventory();
-			break;
+			
 		default:
 
 		}
 
 	}
-
-	private void insertInventory() {
-		
-		// 상품 및 재고 입력
-		System.out.print("상품명 : ");
-		String itemName_1 = scan.next();
-		System.out.print("재고 : ");
-		int itemInventory_1 = scan.nextInt();
-		
-		// 입력 내용을 이용하여 객체 생성
-		ItemInventory inven = new ItemInventory(itemName_1, itemInventory_1);
-		
-		// 리스트에 상품 및 재고 추가
-		
-		list_1.add(inven);
-		
-		System.out.println("상품의 재고입력을 완료하였습니다.");
-		
-		printBar();
-		
-		System.out.println("현 재고 : " + list_1);
-		
-		printBar();
-		
-	}
-
+/*
 	private void insert() {
 
 		// 아이디, 상품 및 가격 입력
@@ -302,5 +269,5 @@ public class ShopManager implements program {
 	private void printBar() {
 		System.out.println("------------------------------");
 	}
-
+*/
 }
