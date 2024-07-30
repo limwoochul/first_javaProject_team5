@@ -9,10 +9,8 @@ import program.program;
 public class ShopManager implements program {
 
 	private Scanner scan = new Scanner(System.in);
-
-	private List<Shop> list = new ArrayList<Shop>();
 	
-	private List<ItemInventory> list_1 = new ArrayList<ItemInventory>();
+	private CartController cartController = new CartController(scan);
 
 	public static void main(String[] args) {
 
@@ -55,7 +53,7 @@ public class ShopManager implements program {
 		switch(menu) {
 
 		case 1:
-			checkBag();
+			cartController.checkCart();
 			break;
 
 		case 2:

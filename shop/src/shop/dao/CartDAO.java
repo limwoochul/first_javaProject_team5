@@ -8,4 +8,6 @@ public interface ScoreDAO {
 	
 	boolean insertItem(@Param("item")ItemVO item);
 	
+	boolean checkCart(@Param("cart")CartVO cart);
+	
 }

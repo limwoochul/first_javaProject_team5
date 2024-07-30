@@ -2,6 +2,7 @@ package shop;
 
 public interface InsertService {
 
-	boolean insertCart( ??? );
+	boolean insertItem( ??? );
 	
+	boolean checkCart( ??? );
 }

@@ -27,7 +27,7 @@ public class CartServiceImp implements CartService {
 		}
 	}
 	
-	public boolean insertCart ( ??? ) {
+	public boolean insertItem ( ??? ) {
 		
 		// 등록되지 않은 상품이면 false를 반환
 		// 입력된 상품의 정보를 DB에서 가져온다.
@@ -52,6 +52,20 @@ public class CartServiceImp implements CartService {
 		
 		item.set ??? _key(dbItem.get ??? key());
 		return itemDao.insertItem(item);
+		
+	}
+	
+	public boolean checkCart( ??? ) {
+		
+		// 장바구니가 DB에 등록이 되어있는지 확인하고, 등록되어있는 것이 없다면 false를 반환
+		
+		CartVO dbCart = cartDao.selectcart(cart);
+
+		if(dbCart == null) {
+			return false;
+		}
+		
+		???
 		
 	}
 	
