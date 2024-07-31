@@ -163,7 +163,7 @@ public class ProgramImp implements Program {
 			PrintController.printBar();
 			
 			runMyPage(menu);
-		} while(menu != '4');
+		} while(menu != '3');
 	}
 
 	private void runMyPage(char menu) {
