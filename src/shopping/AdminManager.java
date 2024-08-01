@@ -2,10 +2,9 @@ package shopping;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -18,9 +17,14 @@ import program.Program;
 // 4. 재고 관리 (관리자는 + 가능)
 public class AdminManager implements Program {
     private Scanner scan = new Scanner(System.in);
-    private List<Item> itemList = new ArrayList<>();
-    private int itemNumber = 1; // 상품 번호 초기화
+    private ItemManager itemManager;
+    private Map<String, User> userMap;
 
+    public AdminManager(ItemManager itemManager, Map<String, User> userMap) {
+    	this.itemManager = itemManager;
+    	this.userMap = userMap;
+    }
+    
     @Override
     public void run() {
         int menu;
@@ -34,7 +38,7 @@ public class AdminManager implements Program {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } while (menu != 4);
+        } while (menu != 6);
     }
 
     @Override
@@ -50,6 +54,12 @@ public class AdminManager implements Program {
                 updateItem();
                 break;
             case 4:
+                viewAllItems();
+                break;
+            case 5:
+                viewAllUsers();
+                break;
+            case 6:
                 backMenu();
                 break;
             default:
@@ -62,11 +72,13 @@ public class AdminManager implements Program {
     @Override
     public void printMenu() {
         System.out.print(
-            "메뉴\n" +
+            "---관리자 메뉴---\n" +
             "1. 상품 등록\n" +
             "2. 상품 삭제\n" +
-            "3. 상품 업데이트\n" +
-            "4. 이전으로\n" +
+            "3. 상품 업데이트\n" + 
+            "4. 등록된 상품 조회\n" +
+            "5. 등록된 회원 조회\n" +
+            "6. 이전으로\n" +
             "메뉴 선택 : "
         );
     }
@@ -85,6 +97,7 @@ public class AdminManager implements Program {
 	}
 
     private void insertItem() {
+    	printBar();
         scan.nextLine(); // clear buffer
 
         String itemName = getItemNameInput();
@@ -96,10 +109,10 @@ public class AdminManager implements Program {
         int itemInventory = getItemInventoryInput();
         if (itemInventory == -1) return;
 
+        int itemNumber = itemManager.getNextItemNumber();
         Item newItem = new Item(itemNumber, itemName, itemPrice);
         newItem.setItemInventory(itemInventory);
-        itemList.add(newItem);
-        itemNumber++;
+        itemManager.addItem(newItem);
 
         System.out.println("상품이 등록되었습니다: " + newItem);
         printBar();
@@ -154,19 +167,13 @@ public class AdminManager implements Program {
     }
 
     private void deleteItem() {
+    	printBar();
         System.out.print("삭제할 상품 번호: ");
         int itemNumber = nextInt();
-        Item itemToRemove = null;
-
-        for (Item item : itemList) {
-            if (item.getItemNumber() == itemNumber) {
-                itemToRemove = item;
-                break;
-            }
-        }
-
+        Item itemToRemove = itemManager.getItemNumber(itemNumber);
+   
         if (itemToRemove != null) {
-            itemList.remove(itemToRemove);
+            itemManager.removeItem(itemToRemove);
             System.out.println("상품이 삭제되었습니다: " + itemToRemove);
             printBar();
         } else {
@@ -176,16 +183,10 @@ public class AdminManager implements Program {
     }
 
     private void updateItem() {
+    	printBar();
         System.out.print("수정할 상품 번호: ");
         int itemNumber = nextInt();
-        Item itemToUpdate = null;
-
-        for (Item item : itemList) {
-            if (item.getItemNumber() == itemNumber) {
-                itemToUpdate = item;
-                break;
-            }
-        }
+        Item itemToUpdate = itemManager.getItemNumber(itemNumber);
 
         if (itemToUpdate == null) {
             System.out.println("해당 상품을 찾을 수 없습니다.");
@@ -211,14 +212,28 @@ public class AdminManager implements Program {
         System.out.println("상품이 업데이트되었습니다: " + itemToUpdate);
         printBar();
     }
+    
+    private void viewAllItems() {
+        printBar();
+        System.out.println("등록된 상품 조회");
+        for (Item item : itemManager.getItemList()) {
+            System.out.println(item.getItemNumber() + ". " + item.getItemName() + " / " + item.getItemPrice() + "원 / " + item.getItemInventory() + "개");
+        }
+    }
+
+    private void viewAllUsers() {
+        printBar();
+        System.out.println("등록된 회원 조회");
+        int index = 1;
+        for (User user : userMap.values()) {
+            System.out.println(index + ". " + user.getId() + " / " + user.getName() + " / " + user.getAddress() + " / " + user.getPhoneNumber());
+            index++;
+        }
+    }
 
     private void backMenu() {
         System.out.println("이전 메뉴로 돌아갑니다.");
         printBar();
     }
 
-    public static void main(String[] args) {
-        AdminManager adminManager = new AdminManager();
-        adminManager.run();
-    }
 }
