@@ -60,9 +60,14 @@ public class ProductController {
         for (ProductVO product : list) {
             System.out.println(product);
         }
-
+        int num; 
         System.out.print("수정할 상품 번호: ");
-        int num = scan.nextInt();
+        try{
+        	num = scan.nextInt();
+        }catch(InputMismatchException e) {
+        	System.out.println("잘못된 번호를 입력하셨습니다.");
+        	return;
+        }
 
         // 입력된 번호가 리스트에 존재하는지 확인
         boolean exists = false;
@@ -115,7 +120,12 @@ public class ProductController {
 
         System.out.print("삭제할 상품 번호: ");
         int num = scan.nextInt();
-
+        try{
+        	num = scan.nextInt();
+        }catch(InputMismatchException e) {
+        	System.out.println("잘못된 번호를 입력하셨습니다.");
+        	return;
+        }
         if (productService.deleteProduct(num)) {
             System.out.println("상품이 성공적으로 삭제되었습니다.");
         } else {
