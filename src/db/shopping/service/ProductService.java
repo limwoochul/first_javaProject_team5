@@ -2,7 +2,6 @@ package db.shopping.service;
 
 import java.util.List;
 
-import db.shopping.model.vo.BuyVO;
 import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;

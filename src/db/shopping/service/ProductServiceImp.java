@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import db.shopping.dao.MemberDAO;
 import db.shopping.dao.ProductDAO;
-import db.shopping.model.vo.BuyVO;
 import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;
