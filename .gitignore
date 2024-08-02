@@ -3,4 +3,4 @@
 .project
 .settings/
 
-java_lhj/.gitignore
+/bin/
