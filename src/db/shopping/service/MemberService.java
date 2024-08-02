@@ -17,4 +17,10 @@ public interface MemberService {
 
 	MemberVO findId(String id);
 
+	List<MemberVO> selectMemberList();
+
+	void deleteMember(String id);
+
+	boolean updateMember(String id, String pw, String name, String phone, String address);
+
 }

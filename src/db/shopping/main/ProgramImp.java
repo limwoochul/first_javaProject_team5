@@ -116,6 +116,12 @@ public class ProgramImp implements Program {
 			productController.updateProduct(); //상품수정
 			break;
 		case '4':
+			memberController.deleteMember();
+			break;
+		case '5':
+			memberController.updateMember();
+			break;
+		case '6':
 			PrintController.logout();
 			break;
 		default:

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import db.shopping.model.vo.MemberVO;
+import db.shopping.model.vo.ProductVO;
 import db.shopping.model.vo.QuestionVO;
 import db.shopping.service.MemberService;
 import db.shopping.service.MemberServiceImp;
@@ -126,6 +127,52 @@ public class MemberController {
 		if(member.getMe_qu_num() != question) return false;
 		if(!member.getMe_answer().equals(answer)) return false;
 		return true;
+	}
+
+	public void deleteMember() {
+		List<MemberVO> list = memberService.selectMemberList();
+        for (MemberVO member : list) {
+            System.out.println(member);
+        }
+
+        System.out.print("삭제할 회원 아이디: ");
+        String id = scan.next();
+        memberService.deleteMember(id);
+        System.out.println("상품이 성공적으로 삭제되었습니다.");
+		
+	}
+
+	public boolean updateMember() {
+		List<MemberVO> list = memberService.selectMemberList();
+        for (MemberVO member : list) {
+            System.out.println(member);
+        }
+        System.out.print("업데이트할 회원 아이디: ");
+        String id = scan.next();
+        MemberVO user = memberService.findId(id);
+		System.out.print("수정할 비밀번호 : ");
+		String pw = scan.next();
+		System.out.print("비밀번호 확인 : ");		
+		String pw2 = scan.next();
+		if(!checkPw(pw, pw2)) return false; //비밀번호 정규식확인 및 일치확인
+		
+		System.out.print("이름 : ");
+		String name = scan.next();
+		System.out.print("휴대번호('-'포함) : ");
+		String phone = scan.next();
+		if(!checkPhone(phone)) return false; //휴대번호 정규식 확인
+		
+		System.out.print("주소 : ");
+		scan.nextLine();
+		String address = scan.nextLine();
+		
+		user.setMe_pw(pw);
+		user.setMe_name(name);
+		user.setMe_phone(phone);
+		user.setMe_address(address);
+        
+		return memberService.updateMember(id, pw, name, phone, address);
+		
 	}
 
 }
