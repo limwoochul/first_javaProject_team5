@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import db.shopping.controller.MemberController;
 import db.shopping.controller.PrintController;
+import db.shopping.controller.ProductController;
 import db.shopping.model.vo.MemberVO;
 import program.Program;
 
@@ -12,6 +13,7 @@ public class ProgramImp implements Program {
 	private Scanner scan = new Scanner(System.in);
 	private MemberVO member = null;
 	private MemberController memberController = new MemberController(scan);
+	private ProductController productController = new ProductController(scan);
 	
 	@Override
 	public void printMenu() {
@@ -140,7 +142,7 @@ public class ProgramImp implements Program {
 	private void runShopping(char menu) {
 		switch(menu) {
 		case '1':
-			//productController.searchProductAll(member.getMe_id()); //상품전체검색
+			productController.searchProductAll(member.getMe_id()); //상품전체검색
 			break;
 		case '2':
 			//productController.searchProductName(member.getMe_id()); //이름으로 상품 검색
