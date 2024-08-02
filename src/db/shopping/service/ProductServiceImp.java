@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import db.shopping.dao.MemberDAO;
 import db.shopping.dao.ProductDAO;
+import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;
 
@@ -44,6 +45,14 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
+	public boolean updateCart(String me_id, ProductVO product) {
+		CartVO oldVo = productDao.selectCart(me_id, product);
+		if(oldVo == null) return false;
+		
+		return productDao.updateCart(me_id, product);
+	}
+
+	@Override
 	public boolean insertCart(String me_id, ProductVO product) {
 		if(product == null) return false;
 		
@@ -53,4 +62,11 @@ public class ProductServiceImp implements ProductService {
 			return false;
 		}
 	}
+
+	@Override
+	public List<CartVO> getCartList(String me_id) {
+		return productDao.selectCartList(me_id);
+	}
+
+
 }

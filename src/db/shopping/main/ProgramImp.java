@@ -205,7 +205,7 @@ public class ProgramImp implements Program {
 	private void runCart(char menu) {
 		switch(menu) {
 		case '1':
-			//productController.searchCart(member.getMe_id()); //장바구니 전체탐색
+			productController.searchCart(member.getMe_id()); //장바구니 전체탐색
 			break;
 		case '2':
 			//productController.deleteCartSome(member.getMe_id()); //장바구니 일부 비우기
