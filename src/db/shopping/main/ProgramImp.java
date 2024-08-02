@@ -101,7 +101,7 @@ public class ProgramImp implements Program {
 			PrintController.printBar();
 			
 			runAdmin(menu);
-		} while(menu != '4');
+		} while(menu != '6');
 	}
 
 	private void runAdmin(char menu) {
