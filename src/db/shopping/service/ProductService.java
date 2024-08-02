@@ -20,4 +20,7 @@ public interface ProductService {
 
 	boolean deleteAllProduct(String me_id);
 
+	void updateProductAmount(CartVO cart);
+
+
 }

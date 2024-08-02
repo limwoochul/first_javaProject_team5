@@ -86,4 +86,13 @@ public class ProductServiceImp implements ProductService {
 		
 		return productDao.deleteAllProduct(me_id); 
 	}
+
+	@Override
+	public void updateProductAmount(CartVO cart) {
+		
+		productDao.updateProductAmount(cart);
+		
+	}
+
+
 }

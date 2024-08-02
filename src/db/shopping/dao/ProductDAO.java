@@ -22,4 +22,7 @@ public interface ProductDAO {
 
 	boolean deleteAllProduct(@Param("me_id")String me_id);
 
+	void updateProductAmount(@Param("ca")CartVO cart);
+
+
 }

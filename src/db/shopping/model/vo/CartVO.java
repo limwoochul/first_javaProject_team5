@@ -23,4 +23,11 @@ public class CartVO {
 		return product.getPr_price() * ca_amount;
 	}
 	
+	public boolean checkInventory() {
+		if(product.getPr_inventory() < ca_amount) {
+			return true;			
+		}
+		return false;
+	}
+	
 }

@@ -89,22 +89,34 @@ public class ProductController {
 		PrintController.printBar();
 		
 		// 구매 의사를 묻는 안내문구 출력
-		System.out.print("상품을 구매하시겠습니까? < Y(y) / N(n) > : ");
-		char choice = scan.next().charAt(0);
+		System.out.println("구매하시겠습니까?");
+		System.out.println("1. 예");
+		System.out.println("2. 아니오");
+		System.out.print("메뉴 선택 : ");
 		
-		// Y(y) 선택 시,
-		// 리스트에 있는 각 물품의 갯수만큼 각 물품의 재고를 차감,
-		// ' 구매를 완료하였습니다 ' 출력
-		// 해당 장바구니 삭제 후, 메뉴로 복귀.
-		if(choice == 'Y' || choice == 'y') {
-			
-		} 
+		int choiceMenu = scan.nextInt();
 		
-		// N(n) 선택 시,
-		// 메뉴로 복귀.
-		else if (choice == 'N' || choice == 'n') {
-			
+		PrintController.printBar();
+		
+		if(choiceMenu != 1) {
+			PrintController.prev();
+			return;
 		}
+		
+		for(CartVO cart : cartList) {
+			if(cart.checkInventory()) {
+				System.out.println("남아있는 재고가 없습니다.");
+				return;
+			}
+		}
+		
+		for(CartVO cart : cartList) {
+			productService.updateProductAmount(cart);
+		}
+		
+		System.out.println("구매가 완료되었습니다.");
+		
+		productService.deleteAllProduct(me_id);
 		
 	}
 
