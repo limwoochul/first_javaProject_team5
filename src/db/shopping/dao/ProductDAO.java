@@ -12,10 +12,11 @@ public interface ProductDAO {
 
     boolean insertProduct(@Param("product") ProductVO product);
 
-    void updateProduct(@Param("product") ProductVO product);
+    boolean updateProduct(@Param("product") ProductVO product);
 
-    void deleteProduct(@Param("pr_num") int pr_num);
+    boolean deleteProduct(@Param("pr_num") int pr_num);
 
-	List<ProductVO> selectProduct();
+    List<ProductVO> selectProduct();
+
+    void updateProductNumbers(@Param("pr_num") int pr_num);
 }
-

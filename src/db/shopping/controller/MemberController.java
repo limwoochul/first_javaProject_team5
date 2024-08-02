@@ -134,11 +134,22 @@ public class MemberController {
         for (MemberVO member : list) {
             System.out.println(member);
         }
-
+        
         System.out.print("삭제할 회원 아이디: ");
         String id = scan.next();
+        boolean exists = false;
+        for (MemberVO member : list) {
+            if (id.equals(member.getMe_id())) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+            return;
+            }
         memberService.deleteMember(id);
-        System.out.println("상품이 성공적으로 삭제되었습니다.");
+        System.out.println("회원이 성공적으로 삭제되었습니다.");
 		
 	}
 
@@ -149,6 +160,17 @@ public class MemberController {
         }
         System.out.print("업데이트할 회원 아이디: ");
         String id = scan.next();
+        boolean exists = false;
+        for (MemberVO member : list) {
+            if (id.equals(member.getMe_id())) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+            return false;
+        }
         MemberVO user = memberService.findId(id);
 		System.out.print("수정할 비밀번호 : ");
 		String pw = scan.next();
@@ -170,7 +192,7 @@ public class MemberController {
 		user.setMe_name(name);
 		user.setMe_phone(phone);
 		user.setMe_address(address);
-        
+		System.out.println("회원이 성공적으로 수정되었습니다.");
 		return memberService.updateMember(id, pw, name, phone, address);
 		
 	}

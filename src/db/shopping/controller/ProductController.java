@@ -51,12 +51,32 @@ public class ProductController {
     // 상품 수정
     public void updateProduct() {
         List<ProductVO> list = productService.selectProductList();
+
+        if (list.isEmpty()) {
+            System.out.println("수정할 상품이 없습니다.");
+            return;
+        }
+
         for (ProductVO product : list) {
             System.out.println(product);
         }
 
         System.out.print("수정할 상품 번호: ");
         int num = scan.nextInt();
+
+        // 입력된 번호가 리스트에 존재하는지 확인
+        boolean exists = false;
+        for (ProductVO product : list) {
+            if (product.getPr_num() == num) {
+                exists = true;
+                break;
+            }
+        }
+        // 입력된 번호가 존재하지 않으면 예외 처리
+        if (!exists) {
+        System.out.println("잘못된 번호입니다. 해당 번호의 상품이 존재하지 않습니다.");
+            return;
+        }
 
         System.out.print("새로운 상품명: ");
         String name = scan.next();
@@ -84,13 +104,22 @@ public class ProductController {
     // 상품 삭제
     public void deleteProduct() {
         List<ProductVO> list = productService.selectProductList();
+        if (list.isEmpty()) {
+            System.out.println("삭제할 상품이 없습니다.");
+            return;
+        }
+
         for (ProductVO product : list) {
             System.out.println(product);
         }
 
         System.out.print("삭제할 상품 번호: ");
         int num = scan.nextInt();
-        productService.deleteProduct(num);
-        System.out.println("상품이 성공적으로 삭제되었습니다.");
+
+        if (productService.deleteProduct(num)) {
+            System.out.println("상품이 성공적으로 삭제되었습니다.");
+        } else {
+            System.out.println("상품 삭제 실패: 잘못된 번호입니다.");
+        }
     }
 }

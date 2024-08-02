@@ -49,13 +49,18 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public void updateProduct(ProductVO product) {
-        productDao.updateProduct(product);
+    public boolean updateProduct(ProductVO product) {
+    	
+        return productDao.updateProduct(product);
     }
 
     @Override
-    public void deleteProduct(int pr_num) {
-        productDao.deleteProduct(pr_num);
+    public boolean deleteProduct(int pr_num) {
+        if (productDao.deleteProduct(pr_num)) {
+            productDao.updateProductNumbers(pr_num);
+            return true;
+        }
+        return false;
     }
 
     private boolean checkString(String str) {
