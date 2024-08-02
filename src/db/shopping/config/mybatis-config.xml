@@ -26,5 +26,6 @@
 	
 	<mappers>
 		<mapper resource="db/shopping/dao/MemberMapper.xml"/>
+		<mapper resource="db/shopping/dao/ProductMapper.xml"/>
 	</mappers>
 </configuration>
