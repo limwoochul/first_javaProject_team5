@@ -34,6 +34,5 @@
 	<select id="selectProduct" resultType="ProductVO">
 		select * from product where pr_num = #{pr_num}
 	</select>
-	
 
 </mapper>
