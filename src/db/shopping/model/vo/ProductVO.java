@@ -15,7 +15,7 @@ public class ProductVO {
 	
 	@Override
 	public String toString() {
-		return pr_num + ". " + pr_name + " : 가격 = " + pr_price + "원";
+		return pr_num + ". " + pr_name + " : 개당 가격 = " + pr_price + "원";
 	}
 
 	public ProductVO(int choiceProduct, int inventory) {

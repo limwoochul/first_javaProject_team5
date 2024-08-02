@@ -3,6 +3,7 @@ package db.shopping.controller;
 import java.util.List;
 import java.util.Scanner;
 
+import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;
 import db.shopping.service.ProductService;
@@ -60,6 +61,21 @@ public class ProductController {
 			System.out.println("장바구니 담기 성공!");
 		} else {
 			System.out.println("장바구니 담기 실패!");
+		}
+		
+	}
+
+	public void searchCart(String me_id) {
+		
+		List<CartVO> cartList = productService.getCartList(me_id);
+		
+		if(cartList.size() == 0) {
+			System.out.println("조회된 상품이 없습니다.");
+			return;
+		}
+		
+		for(CartVO cart : cartList) {
+			System.out.println(cart);
 		}
 		
 	}
