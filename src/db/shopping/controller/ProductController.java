@@ -1,5 +1,6 @@
 package db.shopping.controller;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +27,7 @@ public class ProductController {
 		
 		PrintController.printBar();
 		System.out.print("카테고리 선택 : ");
-		int categoryNum = scan.nextInt();
+		int categoryNum = nextInt();
 		PrintController.printBar();
 		
 		List<ProductVO> productList = null;
@@ -34,6 +35,10 @@ public class ProductController {
 			productList = productService.getProductList(categoryNum);
 		} catch (Exception e) {
 			System.out.println("없는 카테고리입니다.");
+			return;
+		}
+		if(productList.size() == 0) {
+			System.out.println("조회된 상품이 없습니다.");
 			return;
 		}
 		for(ProductVO product : productList) {
@@ -44,16 +49,27 @@ public class ProductController {
 		System.out.println("1. 장바구니 담기");
 		System.out.println("2. 뒤로가기");
 		System.out.print("메뉴선택 : ");
-		int choiceMenu = scan.nextInt();
+		int choiceMenu = nextInt();
 		PrintController.printBar();
+		
+		if(choiceMenu < 0 || choiceMenu > 2) {
+			PrintController.wrongMenu();
+		}
+		
 		
 		if(choiceMenu != 1) return;
 		
 		System.out.print("장바구니에 담을 상품 번호 : ");
-		int choiceProduct =scan.nextInt();
+		int choiceProduct = nextInt();
 		System.out.print("상품 개수 : ");
-		int inventory = scan.nextInt();
+		int inventory = nextInt();
+		if(inventory < 0) {
+			System.out.println("잘못입력했습니다.");
+			return;
+		}
+		
 		PrintController.printBar();
+		
 		ProductVO product = new ProductVO(choiceProduct, inventory);
 		
 		if(productService.updateCart(me_id, product)) {
@@ -69,12 +85,66 @@ public class ProductController {
 		}
 		
 	}
+	
+	public void searchProductName(String me_id) {
+		System.out.print("상품명 : ");
+		String productName = scan.next();
+		List<ProductVO> productList = productService.getProductName(productName);
+		if(productList.size() == 0) {
+			System.err.println("조회된 상품이 없습니다.");
+			return;
+		}
+		
+		for(ProductVO product : productList) {
+			System.out.println(product);
+		}
+		
+		PrintController.printBar();
+		
+		System.out.println("1. 장바구니 담기");
+		System.out.println("2. 뒤로가기");
+		System.out.print("메뉴선택 : ");
+		int choiceMenu = nextInt();
+		PrintController.printBar();
+		
+		if(choiceMenu < 0 || choiceMenu > 2) {
+			PrintController.wrongMenu();
+		}
+		
+		
+		if(choiceMenu != 1) return;
+		
+		System.out.print("장바구니에 담을 상품 번호 : ");
+		int choiceProduct = nextInt();
+
+		System.out.print("상품 개수 : ");
+		int inventory = nextInt();
+		if(inventory < 0) {
+			System.out.println("잘못입력했습니다.");
+			return;
+		}
+		PrintController.printBar();
+		
+		ProductVO product = new ProductVO(choiceProduct, inventory);
+		
+		if(productService.updateCart(me_id, product)) {
+			System.out.println("장바구니 담기 성공!");
+			return;
+		}
+		
+		if(productService.insertCart(me_id, product)) {
+			System.out.println("장바구니 담기 성공!");
+		} else {
+			System.out.println("장바구니 담기 실패!");
+		}
+		
+	}
 
 	public void searchCart(String me_id) {
 		List<CartVO> cartList = productService.getCartList(me_id);
 		
 		if(cartList.size() == 0) {
-			System.out.println("등록된 장바구니가 없습니다.");
+			System.out.println("조회된 상품이 없습니다.");
 			return;
 		}
 		
@@ -107,9 +177,102 @@ public class ProductController {
 		}
 		
 		for(CartVO cart : cartList) {
-			productService.updateProduct(cart);
+			productService.updateProductAmount(cart);
 		}
 		
+		System.out.println("구매가 완료되었습니다.");
+		
+		productService.deleteAllProduct(me_id);
+		
+		for(CartVO cart : cartList) {
+			productService.insertBuy(me_id, cart);
+		}
+		
+	}
+	
+	public void deleteCartSome(String me_id) {
+		
+		// 로그인한 회원의 장바구니 조회 ( 구매한 상품의 번호와 상품명, 개당 가격, 구매수량 출력 )
+
+		List<CartVO> cartList = productService.getCartList(me_id);
+
+		if(cartList.size() == 0) {
+			System.out.println("조회된 상품이 없습니다.");
+			return;
+		}
+
+		for(CartVO cart : cartList) {
+			System.out.println(cart);
+		}
+		
+		PrintController.printBar();
+		
+		System.out.println("삭제할 상품의 번호를 입력하세요.");
+		
+		PrintController.printBar();
+
+		// 삭제할 상품의 번호 입력
+		System.out.print("상품번호 : ");
+		int num = scan.nextInt();
+
+		PrintController.printBar();
+		
+		// 서비스에게 상품번호를 주고, 삭제요청. 
+		// 성공하면 삭제 성공!
+		if(productService.deleteSomeProduct(num, me_id)) {
+			System.out.println("물품이 성공적으로 삭제되었습니다.");
+			
+			// 실패하면 삭제 실패!
+		} else {
+			System.out.println("삭제 실패! 번호를 정확히 입력해주세요.");
+		}
+		
+	}
+
+	public void deleteCartAll(String me_id) {
+		// 로그인한 회원의 장바구니 조회 ( 구매한 상품의 번호와 상품명, 개당 가격, 구매수량 출력 )
+
+		List<CartVO> cartList = productService.getCartList(me_id);
+
+		if(cartList.size() == 0) {
+			System.out.println("조회된 상품이 없습니다.");
+			return;
+		}
+
+		for(CartVO cart : cartList) {
+			System.out.println(cart);
+		}
+
+		PrintController.printBar();
+
+		// 장바구니 비울지 여부에 대한 안내문구
+		System.out.print("장바구니를 비우시겠습니까? < Y(y) / N(n) > : ");
+		char choice = scan.next().charAt(0);
+
+		PrintController.printBar();
+		
+		if(choice == 'Y' || choice == 'y') {
+			if(productService.deleteAllProduct(me_id)) {
+				System.out.println("장바구니 비우기를 완료하였습니다.");
+			} 
+		} 
+
+		// N(n) 선택 시,
+		// 메뉴로 복귀.
+		else if (choice == 'N' || choice == 'n') {
+			return;
+		}
+
+	}
+	
+	private int nextInt() {
+		try {
+			return scan.nextInt();
+		} catch (InputMismatchException e) {
+			System.err.println("숫자만 입력가능합니다.");
+			scan.nextLine();
+			return Integer.MIN_VALUE;
+		}
 	}
 
 }

@@ -18,5 +18,15 @@ public interface ProductService {
 
 	boolean updateCart(String me_id, ProductVO product);
 
+	void updateProductAmount(CartVO cart);
+
+	boolean deleteSomeProduct(int num, String me_id);
+
+	boolean deleteAllProduct(String me_id);
+
+	List<ProductVO> getProductName(String productName);
+
+	void insertBuy(String me_id, CartVO cart);
+
 
 }

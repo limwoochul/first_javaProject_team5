@@ -22,5 +22,15 @@ public interface ProductDAO {
 
 	boolean updateCart(@Param("me_id")String me_id, @Param("pr")ProductVO product);
 
+	void updateProductAmount(@Param("ca")CartVO cart);
+
+	boolean deleteSomeProduct(@Param("pr_num")int num, @Param("me_id")String me_id);
+
+	boolean deleteAllProduct(@Param("me_id")String me_id);
+
+	List<ProductVO> selectProductName(@Param("pr_name")String productName);
+
+	void insertBuy(@Param("me_id")String me_id, @Param("ca")CartVO cart);
+
 
 }

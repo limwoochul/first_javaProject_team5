@@ -5,7 +5,9 @@
 <mapper namespace="db.shopping.dao.ProductDAO">
 	<resultMap type="CartVO" id="CartMap">
 		<id property="ca_num" column="ca_num"/>
-		
+		<result property="ca_amount" column="ca_amount"/>
+		<result property="ca_me_id" column="ca_me_id"/>
+		<result property="ca_pr_num" column="ca_pr_num"/>
 		<collection property="product" ofType="ProductVO" column="ca_pr_num" select="selectProduct"/>
 	</resultMap>
     
@@ -28,11 +30,32 @@
 		values(#{pr.pr_inventory}, #{me_id}, #{pr.pr_num})
 	</insert>
 	
+	<select id="selectProductName" resultType="ProductVO">
+		select * from product where pr_name like concat('%', #{pr_name} ,'%')
+	</select> 
+	
 	<select id="selectCartList" resultMap="CartMap">
 		select * from cart where ca_me_id = #{me_id}
 	</select>
 	<select id="selectProduct" resultType="ProductVO">
 		select * from product where pr_num = #{pr_num}
 	</select>
-
+	
+	<update id="updateProductAmount">
+		update product set pr_inventory = pr_inventory - #{ca.ca_amount}
+		where pr_num = #{ca.ca_pr_num}
+	</update>
+	
+	<delete id="deleteSomeProduct">
+		delete from cart where ca_pr_num = #{pr_num} and ca_me_id = #{me_id}
+	</delete>
+	<delete id="deleteAllProduct">
+		delete from cart where ca_me_id = #{me_id}
+	</delete>
+		
+	<insert id="insertBuy">
+		insert into buy (bu_amount, bu_pr_num, bu_me_id)
+		values( #{ca.ca_amount} , #{ca.ca_pr_num} , #{me_id} )
+	</insert>
+	
 </mapper>

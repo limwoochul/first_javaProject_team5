@@ -68,5 +68,33 @@ public class ProductServiceImp implements ProductService {
 		return productDao.selectCartList(me_id);
 	}
 
+	@Override
+	public void updateProductAmount(CartVO cart) {
+		productDao.updateProductAmount(cart);
+	}
+
+	@Override
+	public boolean deleteSomeProduct(int num, String me_id) {
+		return productDao.deleteSomeProduct(num, me_id); 
+	}
+
+	@Override
+	public boolean deleteAllProduct(String me_id) {
+		return productDao.deleteAllProduct(me_id);
+	}
+
+	@Override
+	public List<ProductVO> getProductName(String productName) {
+		if(productName == null || productName.trim().length() == 0) {
+			return null;
+		}
+		return productDao.selectProductName(productName);
+	}
+
+	@Override
+	public void insertBuy(String me_id, CartVO cart) {
+		productDao.insertBuy(me_id, cart);
+	}
+
 
 }
