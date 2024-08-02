@@ -119,7 +119,7 @@ public class ProductController {
         }
 
         System.out.print("삭제할 상품 번호: ");
-        int num = scan.nextInt();
+        int num;
         try{
         	num = scan.nextInt();
         }catch(InputMismatchException e) {
