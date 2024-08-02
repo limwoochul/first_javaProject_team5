@@ -2,6 +2,7 @@ package db.shopping.service;
 
 import java.util.List;
 
+import db.shopping.model.vo.BuyVO;
 import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;
@@ -22,5 +23,6 @@ public interface ProductService {
 
 	void updateProductAmount(CartVO cart);
 
+	void insertBuy(String me_id, CartVO cart);
 
 }

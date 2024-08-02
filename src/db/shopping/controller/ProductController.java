@@ -118,9 +118,12 @@ public class ProductController {
 		
 		productService.deleteAllProduct(me_id);
 		
+		for(CartVO cart : cartList) {
+			productService.insertBuy(me_id, cart);
+		}
 	}
 
-	public void deleteCartSome(int num, String me_id) {
+	public void deleteCartSome(String me_id) {
 		
 		// 로그인한 회원의 장바구니 조회 ( 구매한 상품의 번호와 상품명, 개당 가격, 구매수량 출력 )
 
@@ -143,7 +146,7 @@ public class ProductController {
 
 		// 삭제할 상품의 번호 입력
 		System.out.print("상품번호 : ");
-		num = scan.nextInt();
+		int num = scan.nextInt();
 
 		PrintController.printBar();
 		

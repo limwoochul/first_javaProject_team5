@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import db.shopping.model.vo.BuyVO;
 import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;
@@ -18,11 +19,12 @@ public interface ProductDAO {
 
 	List<CartVO> selectCartList(@Param("me_id")String me_id);
 
-	boolean deleteSomeProduct(@Param("pr_num")int num);
+	boolean deleteSomeProduct(@Param("pr_num")int num, @Param("me_id")String me_id);
 
 	boolean deleteAllProduct(@Param("me_id")String me_id);
 
 	void updateProductAmount(@Param("ca")CartVO cart);
 
+	void insertBuy(@Param("me_id")String me_id, @Param("ca")CartVO cart);
 
 }

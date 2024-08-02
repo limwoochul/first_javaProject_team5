@@ -27,7 +27,7 @@
 		select * from product where pr_num = #{pr_num}
 	</select>
 	<delete id="deleteSomeProduct">
-		delete from cart where ca_pr_num = #{pr_num}
+		delete from cart where ca_pr_num = #{pr_num} and ca_me_id = #{me_id}
 	</delete>
 	<delete id="deleteAllProduct">
 		delete from cart where ca_me_id = #{me_id}
@@ -37,4 +37,10 @@
 		update product set pr_inventory = pr_inventory - #{ca.ca_amount}
 		where pr_num = #{ca.ca_pr_num}
 	</update>
+	
+	<insert id="insertBuy">
+		insert into buy (bu_amount, bu_pr_num, bu_me_id)
+		values( #{ca.ca_amount} , #{ca.ca_pr_num} , #{me_id} )
+	</insert>
+	
 </mapper>
