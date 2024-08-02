@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db.shopping.dao.MemberDAO">
+	<select id="selectMember" resultType="MemberVO">
+		select * from member where me_id = #{id}
+	</select>
+	<select id="selectQuestionList" resultType="QuestionVO">
+		select * from question order by qu_num
+	</select>
+	<insert id="insertMember">
+	INSERT INTO MEMBER(ME_ID, ME_PW, ME_NAME, ME_PHONE, ME_ADDRESS, ME_ANSWER, ME_QU_NUM)
+	VALUES(#{id}, #{pw}, #{name}, #{phone}, #{address}, #{answer}, #{question});
+	</insert>
+</mapper>
