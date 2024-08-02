@@ -19,4 +19,8 @@ public class CartVO {
 		return "[" + "상품번호 : " + product + " / " + " 구매수량 : " + ca_amount + "]";
 	}
 	
+	public int getTotalPrice() {
+		return product.getPr_price() * ca_amount;
+	}
+	
 }

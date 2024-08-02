@@ -16,4 +16,8 @@ public interface ProductService {
 
 	List<CartVO> getCartList(String me_id);
 
+	boolean deleteSomeProduct(int num, String me_id);
+
+	boolean deleteAllProduct(String me_id);
+
 }

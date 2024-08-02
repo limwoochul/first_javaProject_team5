@@ -59,4 +59,31 @@ public class ProductServiceImp implements ProductService {
 	public List<CartVO> getCartList(String me_id) {
 		return productDao.selectCartList(me_id);
 	}
+
+	@Override
+	public boolean deleteSomeProduct(int num, String me_id) {
+		
+		// 등록된 물품이 없으면 false를 리턴
+		List<CartVO> list = productDao.selectCartList(me_id);
+		if(list.size() == 0) {
+			System.out.println("삭제할 물품이 없습니다.");
+			return false;
+		}
+		
+		// dao 에 상품번호를 주면서 삭제 요청 후, 삭제 여부 반환.
+		return productDao.deleteSomeProduct(num); 
+	}
+
+	@Override
+	public boolean deleteAllProduct(String me_id) {
+		
+		// 등록된 물품이 없으면 false를 리턴
+		List<CartVO> list = productDao.selectCartList(me_id);
+		if(list.size() == 0) {
+			System.out.println("장바구니에 물건이 없습니다.");
+			return false;
+		}
+		
+		return productDao.deleteAllProduct(me_id); 
+	}
 }

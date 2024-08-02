@@ -18,4 +18,8 @@ public interface ProductDAO {
 
 	List<CartVO> selectCartList(@Param("me_id")String me_id);
 
+	boolean deleteSomeProduct(@Param("pr_num")int num);
+
+	boolean deleteAllProduct(@Param("me_id")String me_id);
+
 }
