@@ -1,5 +1,6 @@
 package db.shopping.controller;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class ProductController {
 		
 		PrintController.printBar();
 		System.out.print("카테고리 선택 : ");
-		int categoryNum = scan.nextInt();
+		int categoryNum = nextInt();
 		PrintController.printBar();
 		
 		List<ProductVO> productList = null;
@@ -43,18 +44,27 @@ public class ProductController {
 		System.out.println("1. 장바구니 담기");
 		System.out.println("2. 뒤로가기");
 		System.out.print("메뉴선택 : ");
-		int choiceMenu = scan.nextInt();
+		int choiceMenu = nextInt();
 		PrintController.printBar();
 		
 		if(choiceMenu != 1) return;
 		
 		System.out.print("장바구니에 담을 상품 번호 : ");
-		int choiceProduct =scan.nextInt();
+		int choiceProduct = nextInt();
 		System.out.print("상품 개수 : ");
-		int inventory = scan.nextInt();
+		int inventory = nextInt();
+		if(inventory < 0) {
+			System.out.println("잘못입력했습니다.");
+			return;
+		}
 		PrintController.printBar();
 		
 		ProductVO product = new ProductVO(choiceProduct, inventory);
+		
+		if(productService.updateCart(me_id, product)) {
+			System.out.println("장바구니 담기 성공!");
+			return;
+		}
 		
 		if(productService.insertCart(me_id, product)) {
 			System.out.println("장바구니 담기 성공!");
@@ -64,4 +74,58 @@ public class ProductController {
 		
 	}
 
+	public void searchProductName(String me_id) {
+		System.out.print("상품명 : ");
+		String productName = scan.next();
+		List<ProductVO> productList = productService.getProductName(productName);
+		if(productList.size() == 0) {
+			System.err.println("조회된 상품이 없습니다.");
+			return;
+		}
+		
+		for(ProductVO product : productList) {
+			System.out.println(product);
+		}
+		
+	PrintController.printBar();
+		
+		System.out.println("1. 장바구니 담기");
+		System.out.println("2. 뒤로가기");
+		System.out.print("메뉴선택 : ");
+		int choiceMenu = scan.nextInt();
+		PrintController.printBar();
+		
+		if(choiceMenu != 1) return;
+		
+		System.out.print("장바구니에 담을 상품 번호 : ");
+		int choiceProduct = nextInt();
+
+		System.out.print("상품 개수 : ");
+		int inventory = scan.nextInt();
+		PrintController.printBar();
+		
+		ProductVO product = new ProductVO(choiceProduct, inventory);
+		
+		if(productService.updateCart(me_id, product)) {
+			System.out.println("장바구니 담기 성공!");
+			return;
+		}
+		
+		if(productService.insertCart(me_id, product)) {
+			System.out.println("장바구니 담기 성공!");
+		} else {
+			System.out.println("장바구니 담기 실패!");
+		}
+		
+	}
+
+	private int nextInt() {
+		try {
+			return scan.nextInt();
+		} catch (InputMismatchException e) {
+			System.err.println("숫자만 입력가능합니다.");
+			scan.nextLine();
+			return Integer.MIN_VALUE;
+		}
+	}
 }

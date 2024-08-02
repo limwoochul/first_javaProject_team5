@@ -13,4 +13,8 @@ public interface ProductService {
 
 	boolean insertCart(String me_id, ProductVO product);
 
+	List<ProductVO> getProductName(String productName);
+
+	boolean updateCart(String me_id, ProductVO product);
+
 }

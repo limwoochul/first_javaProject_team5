@@ -13,4 +13,13 @@
 		insert into cart(ca_amount, ca_me_id, ca_pr_num)
 		values(#{pr.pr_inventory}, #{me_id}, #{pr.pr_num})
 	</insert>
+	<select id="selectProductName" resultType="ProductVO">
+		select * from product where pr_name like concat('%', #{pr_name} ,'%')
+	</select> 
+	<select id="selectCart" resultType="CartVO">
+		select * from cart where ca_me_id = #{me_id} and ca_pr_num = #{pr.pr_num}
+	</select>
+	<update id="updateCart">
+		update cart set ca_amount = ca_amount + #{pr.pr_inventory} where ca_me_id = #{me_id} and ca_pr_num = #{pr.pr_num}
+	</update>
 </mapper>
