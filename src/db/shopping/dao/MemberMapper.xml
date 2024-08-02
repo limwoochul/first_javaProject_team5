@@ -13,4 +13,15 @@
 	INSERT INTO MEMBER(ME_ID, ME_PW, ME_NAME, ME_PHONE, ME_ADDRESS, ME_ANSWER, ME_QU_NUM)
 	VALUES(#{id}, #{pw}, #{name}, #{phone}, #{address}, #{answer}, #{question});
 	</insert>
+	<delete id="deleteMember">
+	DELETE FROM MEMBER WHERE me_id = #{id}
+	</delete>
+	<select id="selectMemberList" resultType="MemberVO">
+		select * from member
+	</select>
+	<update id="updateMember">
+	 update member  set 
+	 me_pw = #{pw}, ME_PHONE = #{phone}, 
+	 ME_ADDRESS = #{address} where me_id = #{id}
+	</update>
 </mapper>

@@ -79,4 +79,21 @@ public class MemberServiceImp implements MemberService {
 		return user;
 	}
 
+	@Override
+	public List<MemberVO> selectMemberList() {
+		return memberDao.selectMemberList();
+	}
+
+	@Override
+	public void deleteMember(String id) {
+		memberDao.deleteMember(id);
+	}
+
+	@Override
+	public boolean updateMember(String id, String pw, String name, String phone, String address) {
+		return memberDao.updateMember(id, pw, name, phone, address);
+	}
+
+
+
 }

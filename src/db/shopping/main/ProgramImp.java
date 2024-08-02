@@ -6,6 +6,7 @@ import db.shopping.controller.MemberController;
 import db.shopping.controller.PrintController;
 import db.shopping.controller.ProductController;
 import db.shopping.model.vo.MemberVO;
+import db.shopping.model.vo.ProductVO;
 import program.Program;
 
 public class ProgramImp implements Program {
@@ -14,7 +15,6 @@ public class ProgramImp implements Program {
 	private MemberVO member = null;
 	private MemberController memberController = new MemberController(scan);
 	private ProductController productController = new ProductController(scan);
-	
 	@Override
 	public void printMenu() {
 		PrintController.printMainMenu();		
@@ -107,15 +107,21 @@ public class ProgramImp implements Program {
 	private void runAdmin(char menu) {
 		switch(menu) {
 		case '1':
-			//productController.insertProduct(); //상품등록
+			productController.insertProduct(); //상품등록
 			break;
 		case '2':
-			//productController.deleteProduct(); //상품삭제
+			productController.deleteProduct(); //상품삭제
 			break;
 		case '3':
-			//productController.updateProduct(); //상품수정
+			productController.updateProduct(); //상품수정
 			break;
 		case '4':
+			memberController.deleteMember();
+			break;
+		case '5':
+			memberController.updateMember();
+			break;
+		case '6':
 			PrintController.logout();
 			break;
 		default:
@@ -142,7 +148,7 @@ public class ProgramImp implements Program {
 	private void runShopping(char menu) {
 		switch(menu) {
 		case '1':
-			productController.searchProductAll(member.getMe_id()); //상품전체검색
+			//productController.searchProductAll(member.getMe_id()); //상품전체검색
 			break;
 		case '2':
 			//productController.searchProductName(member.getMe_id()); //이름으로 상품 검색

@@ -2,17 +2,20 @@ package db.shopping.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import db.shopping.model.vo.CategoryVO;
 import db.shopping.model.vo.ProductVO;
 
+@Mapper
 public interface ProductDAO {
 
-	List<CategoryVO> selectCategoryList();
+    boolean insertProduct(@Param("product") ProductVO product);
 
-	List<ProductVO> selectProductList(@Param("cg_num")int categoryNum);
+    void updateProduct(@Param("product") ProductVO product);
 
-	boolean insertCart(@Param("me_id")String me_id, @Param("pr")ProductVO product);
+    void deleteProduct(@Param("pr_num") int pr_num);
 
+	List<ProductVO> selectProduct();
 }
+
