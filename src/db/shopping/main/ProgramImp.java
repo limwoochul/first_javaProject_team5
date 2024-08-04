@@ -151,7 +151,7 @@ public class ProgramImp implements Program {
 			//productController.searchProductAll(member.getMe_id()); //상품전체검색
 			break;
 		case '2':
-			//productController.searchProductName(member.getMe_id()); //이름으로 상품 검색
+			productController.searchProductName(member.getMe_id()); //이름으로 상품 검색
 			break;
 		case '3':
 			myPage(member.getMe_id()); //마이페이지
@@ -166,7 +166,6 @@ public class ProgramImp implements Program {
 
 	//마이페이지 실행
 	private void myPage(String me_id) {
-		PrintController.printBar();
 		char menu = '0';
 		do {
 			PrintController.printMyPageMenu();
@@ -196,7 +195,6 @@ public class ProgramImp implements Program {
 
 	//장바구니 실행
 	private void cart() {
-		PrintController.printBar();
 		char menu = '0';
 		do {
 			PrintController.printCartMenu();
@@ -211,13 +209,13 @@ public class ProgramImp implements Program {
 	private void runCart(char menu) {
 		switch(menu) {
 		case '1':
-			//productController.searchCart(member.getMe_id()); //장바구니 전체탐색
+			productController.searchCart(member.getMe_id()); //장바구니 전체탐색
 			break;
 		case '2':
-			//productController.deleteCartSome(member.getMe_id()); //장바구니 일부 비우기
+			productController.deleteCartSome(member.getMe_id()); //장바구니 일부 비우기
 			break;
 		case '3':
-			//productController.deleteCartAll(member.getMe_id()); //장바구니 전체 비우기
+			productController.deleteCartAll(member.getMe_id()); //장바구니 전체 비우기
 			cart();
 			break;
 		case '4':

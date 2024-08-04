@@ -29,5 +29,4 @@ public interface MemberDAO {
 	List<MemberVO> selectMemberList();
 
 	boolean updateMember(@Param("id")String id, @Param("pw")String pw, @Param("name")String name,@Param("phone") String phone, @Param("address")String address);
-
 }
