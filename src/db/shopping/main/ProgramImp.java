@@ -101,21 +101,27 @@ public class ProgramImp implements Program {
 			PrintController.printBar();
 			
 			runAdmin(menu);
-		} while(menu != '4');
+		} while(menu != '6');
 	}
 
 	private void runAdmin(char menu) {
 		switch(menu) {
 		case '1':
-			//productController.insertProduct(); //상품등록
+			productController.insertProduct(); //상품등록
 			break;
 		case '2':
-			//productController.deleteProduct(); //상품삭제
+			productController.deleteProduct(); //상품삭제
 			break;
 		case '3':
-			//productController.updateProduct(); //상품수정
+			productController.updateProduct(); //상품수정
 			break;
 		case '4':
+			memberController.deleteMember();
+			break;
+		case '5':
+			memberController.updateMember();
+			break;
+		case '6':
 			PrintController.logout();
 			break;
 		default:

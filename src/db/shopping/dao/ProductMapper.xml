@@ -58,4 +58,32 @@
 		values( #{ca.ca_amount} , #{ca.ca_pr_num} , #{me_id} )
 	</insert>
 	
+	<insert id="insertProduct" parameterType="db.shopping.model.vo.ProductVO">
+        INSERT INTO product (pr_name, pr_price, pr_inventory, pr_cg_num)
+        VALUES (#{product.pr_name}, #{product.pr_price}, #{product.pr_inventory}, #{product.pr_cg_num})
+    </insert>
+
+    <update id="updateProduct" parameterType="db.shopping.model.vo.ProductVO">
+        UPDATE product
+        SET pr_name = #{product.pr_name}, pr_price = #{product.pr_price}, pr_inventory = #{product.pr_inventory}, pr_cg_num = #{product.pr_cg_num}
+        WHERE pr_num = #{product.pr_num}
+    </update>
+
+    <delete id="deleteProduct" parameterType="int">
+        DELETE FROM product WHERE pr_num = #{pr_num}
+    </delete>
+
+    <select id="selectProductAll" resultType="db.shopping.model.vo.ProductVO">
+       SELECT *, category.* 
+       FROM product
+       JOIN category ON pr_cg_num = cg_num
+       ORDER BY pr_num ASC;
+    </select>
+
+    <update id="updateProductNumbers" parameterType="int">
+        UPDATE product
+        SET pr_num = pr_num - 1
+        WHERE pr_num > #{pr_num}
+    </update>
+	
 </mapper>

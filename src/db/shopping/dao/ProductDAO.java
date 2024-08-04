@@ -10,6 +10,17 @@ import db.shopping.model.vo.ProductVO;
 
 public interface ProductDAO {
 
+
+    boolean insertProduct(@Param("product") ProductVO product);
+
+    boolean updateProduct(@Param("product") ProductVO product);
+
+    boolean deleteProduct(@Param("pr_num") int pr_num);
+
+    List<ProductVO> selectProductAll();
+
+    void updateProductNumbers(@Param("pr_num") int pr_num);
+    
 	List<CategoryVO> selectCategoryList();
 
 	List<ProductVO> selectProductList(@Param("cg_num")int categoryNum);
