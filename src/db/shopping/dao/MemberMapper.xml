@@ -21,7 +21,7 @@
 	</select>
 	<update id="updateMember">
 		update member  set 
-	 	me_pw = #{pw}, me_name = #{name} ME_PHONE = #{phone}, 
+	 	me_pw = #{pw}, me_name = #{name}, ME_PHONE = #{phone}, 
 	 	ME_ADDRESS = #{address} where me_id = #{id}
 	</update>
 </mapper>

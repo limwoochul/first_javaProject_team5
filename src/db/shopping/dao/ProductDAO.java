@@ -43,5 +43,8 @@ public interface ProductDAO {
 
 	void insertBuy(@Param("me_id")String me_id, @Param("ca")CartVO cart);
 
+	ProductVO checkProduct(@Param("pr_num")int productNum);
+
+
 
 }

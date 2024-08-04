@@ -86,4 +86,8 @@
         WHERE pr_num > #{pr_num}
     </update>
 	
+	<select id="checkProduct" resultType="ProductVO">
+		select * from product where pr_num = #{pr_num}
+	</select>
+	
 </mapper>

@@ -9,7 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import db.shopping.dao.MemberDAO;
 import db.shopping.dao.ProductDAO;
 import db.shopping.model.vo.CartVO;
 import db.shopping.model.vo.CategoryVO;
@@ -136,5 +135,10 @@ public class ProductServiceImp implements ProductService {
     public List<ProductVO> selectProductList() {
         return productDao.selectProductAll();
     }
-    
+
+	@Override
+	public ProductVO checkProductNum(int productNum) {
+		return productDao.checkProduct(productNum);
+	}
+
 }
