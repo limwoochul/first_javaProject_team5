@@ -36,5 +36,7 @@ public interface ProductService {
 
 	void insertBuy(String me_id, CartVO cart);
 
+	ProductVO checkProductNum(int choiceProduct);
+
 
 }

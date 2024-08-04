@@ -24,7 +24,7 @@ public class ProgramImp implements Program {
 	@Override
 	public void run() {
 		int menu = '0';
-		
+		System.out.println("<값싸고 편리한 온라인 마트에 오신걸 환영합니다!>");
 		do {
 			printMenu();
 			
@@ -119,7 +119,7 @@ public class ProgramImp implements Program {
 			memberController.deleteMember();
 			break;
 		case '5':
-			memberController.updateMember();
+			memberController.updateMemberByAdmin();
 			break;
 		case '6':
 			PrintController.logout();
@@ -180,7 +180,7 @@ public class ProgramImp implements Program {
 	private void runMyPage(char menu) {
 		switch(menu) {
 		case '1':
-			//memberController.updateMember(member.getMe_id()); //회원정보 수정
+			memberController.updateMember(member.getMe_id()); //회원정보 수정
 			break;
 		case '2':
 			cart(); //장바구니 실행
