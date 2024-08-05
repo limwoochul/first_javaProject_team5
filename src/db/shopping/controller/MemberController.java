@@ -53,19 +53,28 @@ public class MemberController {
 	public boolean signup() {
 		System.out.print("아이디 : ");
 		String id = scan.next();
-		if(!memberService.checkid(id)) return false; //아이디 중복 및 정규식확인
+		if(!memberService.checkid(id)) {
+			PrintController.printBar();
+			return false; //아이디 중복 및 정규식확인
+		}
 		
 		System.out.print("비밀번호 : ");
 		String pw = scan.next();
 		System.out.print("비밀번호 확인 : ");		
 		String pw2 = scan.next();
-		if(!checkPw(pw, pw2)) return false; //비밀번호 정규식확인 및 일치확인
+		if(!checkPw(pw, pw2)) {
+			PrintController.printBar();
+			return false; //비밀번호 정규식확인 및 일치확인
+		}
 		
 		System.out.print("이름 : ");
 		String name = scan.next();
 		System.out.print("휴대번호('-'포함) : ");
 		String phone = scan.next();
-		if(!checkPhone(phone)) return false; //휴대번호 정규식 확인
+		if(!checkPhone(phone)) {
+			PrintController.printBar();
+			return false; //휴대번호 정규식 확인
+		}
 		
 		System.out.print("주소 : ");
 		scan.nextLine();
@@ -81,6 +90,7 @@ public class MemberController {
 		
 		if(question < 0 || question > list.size()) {
 			System.out.println("존재하지 않는 번호입니다.");
+			PrintController.printBar();
 			return false;
 		}
 		
@@ -157,6 +167,7 @@ public class MemberController {
 		return true;
 	}
 
+	//관리자 회원정보 삭제
 	public void deleteMember() {
 		List<MemberVO> list = memberService.selectMemberList();
 		for (MemberVO member : list) {
@@ -174,13 +185,16 @@ public class MemberController {
 		}
 		if (!exists) {
 			System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+			PrintController.printBar();
 			return;
 		}
 		memberService.deleteMember(id);
 		System.out.println("회원이 성공적으로 삭제되었습니다.");
+		PrintController.printBar();
 
 	}
 
+	//관리자 회원정보 수정
 	public void updateMemberByAdmin() {
 		List<MemberVO> list = memberService.selectMemberList();
 		for (MemberVO member : list) {
@@ -197,6 +211,7 @@ public class MemberController {
 		}
 		if (!exists) {
 			System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+			PrintController.printBar();
 			return;
 		}
 		MemberVO user = memberService.findId(id);
@@ -204,13 +219,19 @@ public class MemberController {
 		String pw = scan.next();
 		System.out.print("비밀번호 확인 : ");		
 		String pw2 = scan.next();
-		if(!checkPw(pw, pw2)) return; //비밀번호 정규식확인 및 일치확인
+		if(!checkPw(pw, pw2)) {
+			PrintController.printBar();
+			return; //비밀번호 정규식확인 및 일치확인
+		}
 
 		System.out.print("이름 : ");
 		String name = scan.next();
 		System.out.print("휴대번호('-'포함) : ");
 		String phone = scan.next();
-		if(!checkPhone(phone)) return; //휴대번호 정규식 확인
+		if(!checkPhone(phone)) {
+			PrintController.printBar();
+			return; //휴대번호 정규식 확인
+		}
 
 		System.out.print("주소 : ");
 		scan.nextLine();
@@ -221,12 +242,15 @@ public class MemberController {
 		user.setMe_phone(phone);
 		user.setMe_address(address);
 		if(memberService.updateMember(id, pw, name, phone, address)) {
-			System.out.println("회원 정보가 성공적으로 수정되었습니다.");			
+			System.out.println("회원 정보가 성공적으로 수정되었습니다.");
+			PrintController.printBar();
 		} else {
 			System.out.println("회원 정보 수정 실패!");
+			PrintController.printBar();
 		}
 	}
 
+	//사용자 회원정보 수정
 	public void updateMember(String me_id) {
 		
 		MemberVO user = memberService.findId(me_id);
@@ -238,13 +262,19 @@ public class MemberController {
 		String pw = scan.next();
 		System.out.print("비밀번호 확인 : ");		
 		String pw2 = scan.next();
-		if(!checkPw(pw, pw2)) return; //비밀번호 정규식확인 및 일치확인
+		if(!checkPw(pw, pw2)) {
+			PrintController.printBar();
+			return; //비밀번호 정규식확인 및 일치확인
+		}
 
 		System.out.print("이름 : ");
 		String name = scan.next();
 		System.out.print("휴대번호('-'포함) : ");
 		String phone = scan.next();
-		if(!checkPhone(phone)) return; //휴대번호 정규식 확인
+		if(!checkPhone(phone)) {
+			PrintController.printBar();
+			return; //휴대번호 정규식 확인
+		}
 
 		System.out.print("주소 : ");
 		scan.nextLine();
@@ -255,9 +285,11 @@ public class MemberController {
 		user.setMe_phone(phone);
 		user.setMe_address(address);
 		if(memberService.updateMember(me_id, pw, name, phone, address)) {
-			System.out.println("회원 정보가 성공적으로 수정되었습니다.");			
+			System.out.println("회원 정보가 성공적으로 수정되었습니다.");
+			PrintController.printBar();
 		} else {
 			System.out.println("회원 정보 수정 실패!");
+			PrintController.printBar();
 		}
 	}
 
