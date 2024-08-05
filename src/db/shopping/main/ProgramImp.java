@@ -148,7 +148,7 @@ public class ProgramImp implements Program {
 	private void runShopping(char menu) {
 		switch(menu) {
 		case '1':
-			//productController.searchProductAll(member.getMe_id()); //상품전체검색
+			productController.searchProductAll(member.getMe_id()); //상품전체검색
 			break;
 		case '2':
 			productController.searchProductName(member.getMe_id()); //이름으로 상품 검색
