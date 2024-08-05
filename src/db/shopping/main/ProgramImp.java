@@ -24,7 +24,10 @@ public class ProgramImp implements Program {
 	@Override
 	public void run() {
 		int menu = '0';
-		System.out.println("<값싸고 편리한 온라인 마트에 오신걸 환영합니다!>");
+		//System.out.println("<값싸고 편리한 온라인 마트에 오신걸 환영합니다!>");
+		System.out.println("  ┏━  ┬┌─┐  ┌┬┐┌─┐┬─┐┌┬┐\r\n"
+						 + "  ┗┓  ││ │  │││├─┤├┬┘ │ \r\n"
+						 + "  ┗┛ └┘└─┘  ┴ ┴┴ ┴┴└─ ┴ ");
 		do {
 			printMenu();
 			
