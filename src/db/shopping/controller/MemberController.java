@@ -109,7 +109,7 @@ public class MemberController {
 		
 		while(true) {
 			question = getIntInput("질문 번호 선택 : ");
-			if(question < 0 || question > list.size()) {
+			if(question <= 0 || question > list.size()) {
 				System.out.println("존재하지 않는 번호입니다.");
 				PrintController.printBar();
 			} else {

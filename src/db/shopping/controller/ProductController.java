@@ -238,6 +238,8 @@ public class ProductController {
 			
 			if(checkProduct == null) {
 				System.out.println("존재하지 않는 상품 번호입니다.");
+			} else if(checkProduct.getPr_inventory() == 0) {
+				System.out.println("재고가 남아있지 않습니다.");
 			} else {
 				break;
 			}
@@ -248,18 +250,23 @@ public class ProductController {
 		CartVO cart = productService.getCartProduct(me_id, choiceProduct);
 		if(cart != null) {
 			cartInventory = cart.getCa_amount();
+			if(cart.getCa_amount() == checkProduct.getPr_inventory()) {
+				System.out.println("이 상품은 더 이상 장바구니에 담을 수 없습니다.");
+				PrintController.printBar();
+				return;
+			}
 		}
 		
-		if(cart.getCa_amount() == checkProduct.getPr_inventory()) {
-			System.out.println("이 상품은 더 이상 장바구니에 담을 수 없습니다.");
-			PrintController.printBar();
-			return;
-		}
 		
 		while(true) {
 			PrintController.printBar();
 			inventory = getIntInput("상품 개수 : ");
-			if(inventory + cartInventory > checkProduct.getPr_inventory()) {
+			if(inventory < 0) {
+				System.out.println("올바른 수를 입력해 주세요.");
+			} else if(inventory == 0){
+				PrintController.prev();
+				return;
+			} else if(inventory + cartInventory > checkProduct.getPr_inventory()) {
 				System.out.println("남아있는 재고가 없습니다.");
 			} else {
 				break;
@@ -332,6 +339,8 @@ public class ProductController {
 			
 			if(checkProduct == null) {
 				System.out.println("존재하지 않는 상품 번호입니다.");
+			} else if(checkProduct.getPr_inventory() == 0) {
+				System.out.println("재고가 남아있지 않습니다.");
 			} else {
 				break;
 			}
@@ -342,18 +351,23 @@ public class ProductController {
 		CartVO cart = productService.getCartProduct(me_id, choiceProduct);
 		if(cart != null) {
 			cartInventory = cart.getCa_amount();
+			if(cart.getCa_amount() == checkProduct.getPr_inventory()) {
+				System.out.println("이 상품은 더 이상 장바구니에 담을 수 없습니다.");
+				PrintController.printBar();
+				return;
+			}
 		}
 		
-		if(cart.getCa_amount() == checkProduct.getPr_inventory()) {
-			System.out.println("이 상품은 더 이상 장바구니에 담을 수 없습니다.");
-			PrintController.printBar();
-			return;
-		}
 		
 		while(true) {
 			PrintController.printBar();
 			inventory = getIntInput("상품 개수 : ");
-			if(inventory + cartInventory > checkProduct.getPr_inventory()) {
+			if(inventory < 0) {
+				System.out.println("올바른 수를 입력해 주세요.");
+			} else if(inventory == 0){
+				PrintController.prev();
+				return;
+			} else if(inventory + cartInventory > checkProduct.getPr_inventory()) {
 				System.out.println("남아있는 재고가 없습니다.");
 			} else {
 				break;
@@ -407,7 +421,7 @@ public class ProductController {
 		int choiceMenu = getIntInput("메뉴 선택 : ");
 		PrintController.printBar();
 		
-		if(choiceMenu < 0 || choiceMenu > 2) {
+		if(choiceMenu <= 0 || choiceMenu > 2) {
 			PrintController.wrongMenu();
 			PrintController.printBar();
 			return;
