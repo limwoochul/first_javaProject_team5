@@ -49,13 +49,13 @@ public class MemberServiceImp implements MemberService {
 	public boolean checkid(String id) {
 		MemberVO user = memberDao.selectMember(id);
 		if(user != null) {
-			System.err.println("이미 존재하는 아이디입니다.");
+			System.out.println("이미 존재하는 아이디입니다.");
 			return false;
 		}
 		
 		String idRegex = "^\\w{6,13}$";
 		if(!Pattern.matches(idRegex, id)) {
-			System.err.println("아이디는 4~15자 사이의 영문과 숫자로만 이뤄져야 합니다.");
+			System.out.println("아이디는 4~15자 사이의 영문과 숫자로만 이뤄져야 합니다.");
 			return false;
 		}
 		return true;
