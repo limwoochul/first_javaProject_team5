@@ -28,7 +28,7 @@ public class MemberController {
 				number = scan.nextInt();
 				break; // 올바른 입력이 들어오면 루프 종료
 			} catch (InputMismatchException e) {
-				System.err.println("숫자를 입력해 주세요.");
+				System.out.println("숫자를 입력해 주세요.");
 				scan.next(); // 잘못된 입력을 소비하여 무한 루프 방지
 				PrintController.printBar();
 			}
@@ -43,7 +43,7 @@ public class MemberController {
 			System.out.print(prompt);
 			input = scan.nextLine();
 			if(input.trim().isEmpty() || input.contains(" ")) {
-				System.err.println("공백은 입력할 수 없습니다.");
+				System.out.println("공백은 입력할 수 없습니다.");
 				PrintController.printBar();
 			} else {
 				break;
@@ -110,7 +110,7 @@ public class MemberController {
 		while(true) {
 			question = getIntInput("질문 번호 선택 : ");
 			if(question < 0 || question > list.size()) {
-				System.err.println("존재하지 않는 번호입니다.");
+				System.out.println("존재하지 않는 번호입니다.");
 				PrintController.printBar();
 			} else {
 				break;
@@ -128,12 +128,12 @@ public class MemberController {
 	private boolean checkPw(String pw, String pw2) {
 		String pwRegex = "^[a-zA-Z0-9!@#$]{6,15}$";
 		if(!(Pattern.matches(pwRegex, pw)||Pattern.matches(pwRegex, pw2))) {
-			System.err.println("비밀번호는 6~15자 사이의 영문과 숫자, 특수문자(!@#$)로만 이뤄져야 합니다.");
+			System.out.println("비밀번호는 6~15자 사이의 영문과 숫자, 특수문자(!@#$)로만 이뤄져야 합니다.");
 			return false;
 		}
 		
 		if(!pw.equals(pw2)) {
-			System.err.println("비밀번호가 일치하지 않습니다.");
+			System.out.println("비밀번호가 일치하지 않습니다.");
 			return false;
 		}
 		return true;
@@ -143,7 +143,7 @@ public class MemberController {
 	private boolean checkPhone(String phone) {
 		String regex = "^01(?:0|1|[6-9])-\\d{3,4}-\\d{4}$";
 		if(!Pattern.matches(regex, phone)) {
-			System.err.println("휴대번호 형식이 맞지 않습니다.");
+			System.out.println("휴대번호 형식이 맞지 않습니다.");
 			return false;
 		}
 		return true;
@@ -171,7 +171,7 @@ public class MemberController {
 		while(true) {
 			question = getIntInput("질문 번호 선택 : ");
 			if(question <= 0 || question > list.size()) {
-				System.err.println("존재하지 않는 번호입니다.");
+				System.out.println("존재하지 않는 번호입니다.");
 			} else {
 				break;
 			}
@@ -184,7 +184,7 @@ public class MemberController {
 			System.out.println("비밀번호는 [" + member.getMe_pw() + "]입니다.");
 		}
 		else {
-			System.err.println("질문 또는 답변이 일치하지 않습니다.");
+			System.out.println("질문 또는 답변이 일치하지 않습니다.");
 		}
 			
 	}
@@ -213,7 +213,7 @@ public class MemberController {
 			}
 		}
 		if (!exists) {
-			System.err.println("해당 아이디의 회원이 존재하지 않습니다.");
+			System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
 			PrintController.printBar();
 			return;
 		}
@@ -239,7 +239,7 @@ public class MemberController {
 			}
 		}
 		if (!exists) {
-			System.err.println("해당 아이디의 회원이 존재하지 않습니다.");
+			System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
 			PrintController.printBar();
 			return;
 		}
@@ -280,7 +280,7 @@ public class MemberController {
 			System.out.println("회원 정보가 성공적으로 수정되었습니다.");
 			PrintController.printBar();
 		} else {
-			System.err.println("회원 정보 수정 실패!");
+			System.out.println("회원 정보 수정 실패!");
 			PrintController.printBar();
 		}
 	}

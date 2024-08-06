@@ -17,11 +17,11 @@ public class PrintController {
 	}
 
 	public static void wrongMenu() {
-		System.err.println("잘못된 메뉴를 선택했습니다.");
+		System.out.println("잘못된 메뉴를 선택했습니다.");
 	}
 
 	public static void loginFail() {
-		System.err.println("아이디 또는 비밀번호가 잘못되었습니다.");		
+		System.out.println("아이디 또는 비밀번호가 잘못되었습니다.");		
 	}
 
 	public static void signupSuccess() {
@@ -29,7 +29,7 @@ public class PrintController {
 	}
 
 	public static void signupFail() {
-		System.err.println("회원가입 실패!");
+		System.out.println("회원가입 실패!");
 	}
 
 	public static void printAdminMenu() {
@@ -82,7 +82,7 @@ public class PrintController {
 	}
 
 	public static void wrongId() {
-		System.err.println("존재하는 아이디가 없습니다.");
+		System.out.println("존재하는 아이디가 없습니다.");
 	}
 
 }
