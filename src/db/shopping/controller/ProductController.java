@@ -74,8 +74,8 @@ public class ProductController {
         		
         while(true) {
         	categoryNum = getIntInput("카테고리 번호 입력: ");
-        	if(categoryNum < 0 || categoryNum > categoryList.size()) {
-        		System.out.println("없는 카테고리 번호입니다.");
+        	if(categoryNum <= 0 || categoryNum > categoryList.size()) {
+        		System.err.println("없는 카테고리 번호입니다.");
         		PrintController.printBar();
         	} else {
         		break;
@@ -135,8 +135,8 @@ public class ProductController {
 		
         while(true) {
         	categoryNum = getIntInput("새로운 카테고리 번호 입력: ");
-        	if(categoryNum < 0 || categoryNum > categoryList.size()) {
-        		System.out.println("없는 카테고리 번호입니다.");
+        	if(categoryNum <= 0 || categoryNum > categoryList.size()) {
+        		System.err.println("없는 카테고리 번호입니다.");
         		PrintController.printBar();
         	} else {
         		break;
