@@ -141,4 +141,9 @@ public class ProductServiceImp implements ProductService {
 		return productDao.checkProduct(productNum);
 	}
 
+	@Override
+	public CartVO getCartProduct(String me_id, int productNum) {
+		return productDao.getCartProduct(me_id, productNum);
+	}
+
 }

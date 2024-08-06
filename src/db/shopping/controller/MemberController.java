@@ -28,7 +28,7 @@ public class MemberController {
 				number = scan.nextInt();
 				break; // 올바른 입력이 들어오면 루프 종료
 			} catch (InputMismatchException e) {
-				System.out.println("숫자를 입력해 주세요.");
+				System.err.println("숫자를 입력해 주세요.");
 				scan.next(); // 잘못된 입력을 소비하여 무한 루프 방지
 				PrintController.printBar();
 			}
@@ -36,13 +36,27 @@ public class MemberController {
 		return number;
 	}
 	
+	// 공백 없는 문자열 입력 처리 메소드
+	private String getNonEmptyInput(String prompt) {
+		String input = "";
+		while(true) {
+			System.out.print(prompt);
+			input = scan.nextLine();
+			if(input.trim().isEmpty() || input.contains(" ")) {
+				System.err.println("공백은 입력할 수 없습니다.");
+				PrintController.printBar();
+			} else {
+				break;
+			}
+		}
+		return input;
+	}
+	
 	//로그인
 	public MemberVO login() {
-		System.out.print("아이디 : ");
-		String id = scan.next();
-		
-		System.out.print("비밀번호 : ");
-		String pw = scan.next();
+		scan.nextLine();
+		String id = getNonEmptyInput("아이디 : ");
+		String pw = getNonEmptyInput("비밀번호 : ");
 		
 		MemberVO user = memberService.login(id, pw);
 		
@@ -51,33 +65,38 @@ public class MemberController {
 
 	//회원가입
 	public boolean signup() {
-		System.out.print("아이디 : ");
-		String id = scan.next();
+		scan.nextLine();
+		String id = getNonEmptyInput("아이디 : ");
 		if(!memberService.checkid(id)) {
 			PrintController.printBar();
 			return false; //아이디 중복 및 정규식확인
 		}
 		
-		System.out.print("비밀번호 : ");
-		String pw = scan.next();
-		System.out.print("비밀번호 확인 : ");		
-		String pw2 = scan.next();
-		if(!checkPw(pw, pw2)) {
-			PrintController.printBar();
-			return false; //비밀번호 정규식확인 및 일치확인
+		String pw ="", pw2 = "";
+		while(true) {
+			pw = getNonEmptyInput("비밀번호 : ");
+			pw2 = getNonEmptyInput("비밀번호 확인 : ");
+			if(!checkPw(pw, pw2)) {
+				PrintController.printBar();//비밀번호 정규식확인 및 일치확인
+			} else {
+				break;
+			}
+			
 		}
 		
-		System.out.print("이름 : ");
-		String name = scan.next();
-		System.out.print("휴대번호('-'포함) : ");
-		String phone = scan.next();
-		if(!checkPhone(phone)) {
-			PrintController.printBar();
-			return false; //휴대번호 정규식 확인
+		String name = getNonEmptyInput("이름 : ");
+		
+		String phone = "";
+		while(true) {
+			phone = getNonEmptyInput("휴대번호('-'포함) : ");
+			if(!checkPhone(phone)) {
+				PrintController.printBar();//휴대번호 정규식 확인
+			} else {
+				break;
+			}
 		}
 		
 		System.out.print("주소 : ");
-		scan.nextLine();
 		String address = scan.nextLine();
 		
 		System.out.println("---비밀번호 분실 시 찾기 질문---");
@@ -86,16 +105,21 @@ public class MemberController {
 			System.out.println(question);
 		}
 
-		int question = getIntInput("질문 번호 선택 : ");
+		int question = 0;
 		
-		if(question < 0 || question > list.size()) {
-			System.out.println("존재하지 않는 번호입니다.");
-			PrintController.printBar();
-			return false;
+		while(true) {
+			question = getIntInput("질문 번호 선택 : ");
+			if(question < 0 || question > list.size()) {
+				System.err.println("존재하지 않는 번호입니다.");
+				PrintController.printBar();
+			} else {
+				break;
+			}
 		}
 		
-		System.out.print("답변 : ");
-		String answer = scan.next();
+		
+		scan.nextLine();
+		String answer = getNonEmptyInput("답변 : ");
 	
 		return memberService.signup(id, pw, name, phone, address, answer, question);
 	}
@@ -104,12 +128,12 @@ public class MemberController {
 	private boolean checkPw(String pw, String pw2) {
 		String pwRegex = "^[a-zA-Z0-9!@#$]{6,15}$";
 		if(!(Pattern.matches(pwRegex, pw)||Pattern.matches(pwRegex, pw2))) {
-			System.out.println("비밀번호는 6~15자 사이의 영문과 숫자, 특수문자(!@#$)로만 이뤄져야 합니다.");
+			System.err.println("비밀번호는 6~15자 사이의 영문과 숫자, 특수문자(!@#$)로만 이뤄져야 합니다.");
 			return false;
 		}
 		
 		if(!pw.equals(pw2)) {
-			System.out.println("비밀번호가 일치하지 않습니다.");
+			System.err.println("비밀번호가 일치하지 않습니다.");
 			return false;
 		}
 		return true;
@@ -119,7 +143,7 @@ public class MemberController {
 	private boolean checkPhone(String phone) {
 		String regex = "^01(?:0|1|[6-9])-\\d{3,4}-\\d{4}$";
 		if(!Pattern.matches(regex, phone)) {
-			System.out.println("휴대번호 형식이 맞지 않습니다.");
+			System.err.println("휴대번호 형식이 맞지 않습니다.");
 			return false;
 		}
 		return true;
@@ -127,8 +151,8 @@ public class MemberController {
 
 	//검색한 아이디 찾아오기
 	public MemberVO findId() {
-		System.out.print("아이디 : ");
-		String id = scan.next();
+		scan.nextLine();
+		String id = getNonEmptyInput("아이디 : ");
 		MemberVO user = memberService.findId(id);
 
 		return user;
@@ -142,20 +166,25 @@ public class MemberController {
 			System.out.println(question);
 		}
 		
-		int question = getIntInput("질문 번호 선택 : ");
+		int question = 0; 
 		
-		if(question < 0 || question > list.size()) {
-			System.out.println("존재하지 않는 번호입니다.");
-			return;
+		while(true) {
+			question = getIntInput("질문 번호 선택 : ");
+			if(question < 0 || question > list.size()) {
+				System.out.println("존재하지 않는 번호입니다.");
+			} else {
+				break;
+			}
 		}
-		System.out.print("답변 : ");
-		String answer = scan.next();
+		
+		scan.nextLine();
+		String answer = getNonEmptyInput("답변 : ");
 		
 		if(checkQNA(member, question, answer)) {
 			System.out.println("비밀번호는 [" + member.getMe_pw() + "]입니다.");
 		}
 		else {
-			System.out.println("질문 또는 답변이 일치하지 않습니다.");
+			System.err.println("질문 또는 답변이 일치하지 않습니다.");
 		}
 			
 	}
@@ -173,9 +202,9 @@ public class MemberController {
 		for (MemberVO member : list) {
 			System.out.println(member);
 		}
-
-		System.out.print("삭제할 회원 아이디: ");
-		String id = scan.next();
+		
+		scan.nextLine();
+		String id = getNonEmptyInput("삭제할 회원 아이디: ");
 		boolean exists = false;
 		for (MemberVO member : list) {
 			if (id.equals(member.getMe_id())) {
@@ -184,7 +213,7 @@ public class MemberController {
 			}
 		}
 		if (!exists) {
-			System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+			System.err.println("해당 아이디의 회원이 존재하지 않습니다.");
 			PrintController.printBar();
 			return;
 		}
@@ -200,8 +229,8 @@ public class MemberController {
 		for (MemberVO member : list) {
 			System.out.println(member);
 		}
-		System.out.print("업데이트할 회원 아이디: ");
-		String id = scan.next();
+		scan.nextLine();
+		String id = getNonEmptyInput("업데이트할 회원 아이디: ");
 		boolean exists = false;
 		for (MemberVO member : list) {
 			if (id.equals(member.getMe_id())) {
@@ -210,31 +239,37 @@ public class MemberController {
 			}
 		}
 		if (!exists) {
-			System.out.println("해당 아이디의 회원이 존재하지 않습니다.");
+			System.err.println("해당 아이디의 회원이 존재하지 않습니다.");
 			PrintController.printBar();
 			return;
 		}
 		MemberVO user = memberService.findId(id);
-		System.out.print("수정할 비밀번호 : ");
-		String pw = scan.next();
-		System.out.print("비밀번호 확인 : ");		
-		String pw2 = scan.next();
-		if(!checkPw(pw, pw2)) {
-			PrintController.printBar();
-			return; //비밀번호 정규식확인 및 일치확인
+		
+		String pw ="", pw2 = "";
+		while(true) {
+			pw = getNonEmptyInput("수정할 비밀번호 : ");
+			pw2 = getNonEmptyInput("비밀번호 확인 : ");
+			if(!checkPw(pw, pw2)) {
+				PrintController.printBar();//비밀번호 정규식확인 및 일치확인
+			} else {
+				break;
+			}
+			
 		}
 
-		System.out.print("이름 : ");
-		String name = scan.next();
-		System.out.print("휴대번호('-'포함) : ");
-		String phone = scan.next();
-		if(!checkPhone(phone)) {
-			PrintController.printBar();
-			return; //휴대번호 정규식 확인
+		String name = getNonEmptyInput("이름 : ");
+		
+		String phone = "";
+		while(true) {
+			phone = getNonEmptyInput("휴대번호('-'포함) : ");
+			if(!checkPhone(phone)) {
+				PrintController.printBar();//휴대번호 정규식 확인
+			} else {
+				break;
+			}
 		}
 
 		System.out.print("주소 : ");
-		scan.nextLine();
 		String address = scan.nextLine();
 
 		user.setMe_pw(pw);
@@ -245,7 +280,7 @@ public class MemberController {
 			System.out.println("회원 정보가 성공적으로 수정되었습니다.");
 			PrintController.printBar();
 		} else {
-			System.out.println("회원 정보 수정 실패!");
+			System.err.println("회원 정보 수정 실패!");
 			PrintController.printBar();
 		}
 	}
@@ -258,26 +293,31 @@ public class MemberController {
 		System.out.println("-------나의 정보-------");
 		System.out.println(user);
 		
-		System.out.print("수정할 비밀번호 : ");
-		String pw = scan.next();
-		System.out.print("비밀번호 확인 : ");		
-		String pw2 = scan.next();
-		if(!checkPw(pw, pw2)) {
-			PrintController.printBar();
-			return; //비밀번호 정규식확인 및 일치확인
+		String pw ="", pw2 = "";
+		while(true) {
+			pw = getNonEmptyInput("수정할 비밀번호 : ");
+			pw2 = getNonEmptyInput("비밀번호 확인 : ");
+			if(!checkPw(pw, pw2)) {
+				PrintController.printBar();//비밀번호 정규식확인 및 일치확인
+			} else {
+				break;
+			}
+			
 		}
 
-		System.out.print("이름 : ");
-		String name = scan.next();
-		System.out.print("휴대번호('-'포함) : ");
-		String phone = scan.next();
-		if(!checkPhone(phone)) {
-			PrintController.printBar();
-			return; //휴대번호 정규식 확인
+		String name = getNonEmptyInput("이름 : ");
+		
+		String phone = "";
+		while(true) {
+			phone = getNonEmptyInput("휴대번호('-'포함) : ");
+			if(!checkPhone(phone)) {
+				PrintController.printBar();//휴대번호 정규식 확인
+			} else {
+				break;
+			}
 		}
 
 		System.out.print("주소 : ");
-		scan.nextLine();
 		String address = scan.nextLine();
 
 		user.setMe_pw(pw);

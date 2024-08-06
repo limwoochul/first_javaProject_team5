@@ -45,6 +45,8 @@ public interface ProductDAO {
 
 	ProductVO checkProduct(@Param("pr_num")int productNum);
 
+	CartVO getCartProduct(@Param("me_id")String me_id, @Param("pr_num")int productNum);
+
 
 
 }

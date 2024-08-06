@@ -38,5 +38,7 @@ public interface ProductService {
 
 	ProductVO checkProductNum(int choiceProduct);
 
+	CartVO getCartProduct(String me_id, int choiceProduct);
+
 
 }

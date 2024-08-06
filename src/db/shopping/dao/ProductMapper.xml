@@ -90,4 +90,8 @@
 		select * from product where pr_num = #{pr_num}
 	</select>
 	
+	<select id="getCartProduct" resultType="CartVO">
+		select * from cart where ca_me_id = #{me_id} and ca_pr_num = #{pr_num} 
+	</select>
+	
 </mapper>
