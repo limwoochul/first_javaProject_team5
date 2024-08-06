@@ -219,7 +219,6 @@ public class ProgramImp implements Program {
 			break;
 		case '3':
 			productController.deleteCartAll(member.getMe_id()); //장바구니 전체 비우기
-			cart();
 			break;
 		case '4':
 			PrintController.prev();
