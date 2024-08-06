@@ -250,6 +250,11 @@ public class ProductController {
 			cartInventory = cart.getCa_amount();
 		}
 		
+		if(cart.getCa_amount() == checkProduct.getPr_inventory()) {
+			System.out.println("이 상품은 더 이상 장바구니에 담을 수 없습니다.");
+			PrintController.printBar();
+			return;
+		}
 		
 		while(true) {
 			PrintController.printBar();
@@ -339,6 +344,11 @@ public class ProductController {
 			cartInventory = cart.getCa_amount();
 		}
 		
+		if(cart.getCa_amount() == checkProduct.getPr_inventory()) {
+			System.out.println("이 상품은 더 이상 장바구니에 담을 수 없습니다.");
+			PrintController.printBar();
+			return;
+		}
 		
 		while(true) {
 			PrintController.printBar();

@@ -170,8 +170,8 @@ public class MemberController {
 		
 		while(true) {
 			question = getIntInput("질문 번호 선택 : ");
-			if(question < 0 || question > list.size()) {
-				System.out.println("존재하지 않는 번호입니다.");
+			if(question <= 0 || question > list.size()) {
+				System.err.println("존재하지 않는 번호입니다.");
 			} else {
 				break;
 			}
@@ -293,6 +293,7 @@ public class MemberController {
 		System.out.println("-------나의 정보-------");
 		System.out.println(user);
 		
+		scan.nextLine();
 		String pw ="", pw2 = "";
 		while(true) {
 			pw = getNonEmptyInput("수정할 비밀번호 : ");
