@@ -119,10 +119,10 @@ public class ProgramImp implements Program {
 			productController.updateProduct(); //상품수정
 			break;
 		case '4':
-			memberController.deleteMember();
+			memberController.deleteMember(); //회원삭제
 			break;
 		case '5':
-			memberController.updateMemberByAdmin();
+			memberController.updateMemberByAdmin(); //회원수정
 			break;
 		case '6':
 			PrintController.logout();

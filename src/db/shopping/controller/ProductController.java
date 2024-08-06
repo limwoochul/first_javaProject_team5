@@ -409,7 +409,7 @@ public class ProductController {
 		
 		for(CartVO cart : cartList) {
 			if(cart.checkInventory()) {
-				System.out.println("남아있는 재고가 없습니다.");
+				System.err.println("남아있는 재고가 없습니다.");
 				PrintController.printBar();
 				return;
 			}
